@@ -8,7 +8,7 @@
     |
     <router-link to="/checkout">OSTUKORV</router-link>
     |
-    <router-link to="#" @click="openLoginModal">LOGI SISSE</router-link>
+    <a href="#" @click="openLoginModal">LOGI SISSE</a>
   </nav>
   <router-view/>
 </template>
