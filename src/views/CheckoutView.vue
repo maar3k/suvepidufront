@@ -1,11 +1,11 @@
 <template>
-  <div class="about">
+  <div>
     <h1>ChekcoutView vaade</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CheckoutView',
+  name: 'CheckoutView'
 }
 </script>

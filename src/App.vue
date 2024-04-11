@@ -1,16 +1,14 @@
 <template>
-  <div class="logo mb-1">
+  <div class="logo mt-3">
     <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
-  <div>
-    <nav>
-      <router-link to="/">AVALEHT</router-link>
-      |
-      <router-link to="/checkout">OSTUKORV</router-link>
-      |
-      <router-link to="#">LOGI SISSE</router-link>
-    </nav>
-  </div>
+  <nav>
+    <router-link to="/">AVALEHT</router-link>
+    |
+    <router-link to="/checkout">OSTUKORV</router-link>
+    |
+    <router-link to="#">LOGI SISSE</router-link>
+  </nav>
   <router-view/>
 </template>
 

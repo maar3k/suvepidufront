@@ -2,6 +2,9 @@
 
 </template>
 
-<script setup>
+<script>
+export default {
+  name: 'LoginModal',
+}
 
 </script>
