@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modalRef"/>
+  <LoginModal ref="loginModalRef"/>
   <div class="logo mt-3">
     <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
@@ -8,24 +8,24 @@
     |
     <router-link to="/checkout">OSTUKORV</router-link>
     |
-    <router-link to="#" @click="openModal">LOGI SISSE</router-link>
+    <router-link to="#" @click="openLoginModal">LOGI SISSE</router-link>
   </nav>
   <router-view/>
 </template>
 
 <script>
 
-import {defineComponent} from "vue";
-import Modal from "@/components/Modal.vue";
+import LoginModal from "@/components/LoginModal.vue";
 
-export default defineComponent({
-  components: {Modal},
-  methods:{
-    openModal() {
-      this.$refs.modalRef.openModal()
+export default {
+  name: 'App',
+  components: {LoginModal},
+  methods: {
+    openLoginModal() {
+      this.$refs.loginModalRef.$refs.modalRef.openModal()
     },
   }
-})
+}
 </script>
 
 <style>

@@ -35,7 +35,7 @@ export default {
   components: {FocusTrap},
   data() {
     return {
-      isOpen: true
+      isOpen: false
     }
   },
   methods: {
