@@ -24,7 +24,6 @@
       <button @click="executeNewUser" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
     </template>
   </Modal>
-
 </template>
 
 <script>
