@@ -36,6 +36,15 @@
         <input type="password" class="form-control" id="password">
       </div>
     </div>
+    <div class="row mt-3">
+      <div class="col">
+      </div>
+      <div class="col">
+        <button @click="" type="submit" class="button-success btn btn-primary text-center text-nowrap">OK</button>
+        <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
