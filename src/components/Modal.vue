@@ -17,7 +17,6 @@
           </slot>
         </div>
         <div class="modal-footer justify-content-center">
-          <button type="button" class="btn btn-dark" @click="closeModal">Sulge</button>
           <slot name="buttons">
             <!-- button -->
           </slot>
