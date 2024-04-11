@@ -1,4 +1,5 @@
 <template>
+  <Modal/>
   <div class="logo mt-3">
     <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
@@ -14,6 +15,12 @@
 
 <script>
 
+import {defineComponent} from "vue";
+import Modal from "@/components/Modal.vue";
+
+export default defineComponent({
+  components: {Modal}
+})
 </script>
 
 <style>
