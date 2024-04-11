@@ -12,12 +12,15 @@
 </template>
 
 <script>
+
 export default {
   name: 'NewUserView',
+
   methods: {
-    // executeNewUser() {
-    //   router.push({name: 'newUserRoute'})
-    // },
+
   }
 }
+
 </script>
+
+

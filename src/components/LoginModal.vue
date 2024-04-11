@@ -34,9 +34,11 @@ import router from "@/router";
 export default {
   name: 'LoginModal',
   components: {Modal},
+
   methods: {
     executeNewUser() {
-      router.push({name: 'newUserRoute'})
+      this.$refs.modalRef.closeModal()
+      this.$router.push('/new-user');
     },
   }
 }
