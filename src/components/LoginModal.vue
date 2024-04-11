@@ -31,6 +31,7 @@
 import Modal from "@/components/Modal.vue";
 import router from "@/router";
 
+
 export default {
   name: 'LoginModal',
   components: {Modal},
@@ -38,7 +39,7 @@ export default {
   methods: {
     executeNewUser() {
       this.$refs.modalRef.closeModal()
-      this.$router.push('/new-user');
+      router.push({name: 'newUserRoute'})
     },
   }
 }

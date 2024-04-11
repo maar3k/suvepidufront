@@ -16,9 +16,6 @@
 export default {
   name: 'NewUserView',
 
-  methods: {
-
-  }
 }
 
 </script>
