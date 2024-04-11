@@ -35,11 +35,16 @@ export default {
   components: {FocusTrap},
   data() {
     return {
-      isOpen: false
+      isOpen: true
     }
   },
   methods: {
-
+    closeModal() {
+      this.isOpen = false
+    },
+    openModal() {
+      this.isOpen = true
+    }
   }
 }
 </script>
