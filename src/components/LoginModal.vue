@@ -21,7 +21,7 @@
     </template>
     <template #buttons>
       <button @click="executeLogIn" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
-      <button @click="" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
+      <button @click="executeNewUser" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
     </template>
   </Modal>
 
@@ -29,11 +29,16 @@
 
 <script>
 import Modal from "@/components/Modal.vue";
+import router from "@/router";
 
 export default {
   name: 'LoginModal',
   components: {Modal},
-
+  methods: {
+    executeNewUser() {
+      router.push({name: 'newUserRoute'})
+    },
+  }
 }
 
 
