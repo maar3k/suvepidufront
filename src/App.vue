@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img src="../src/assets/logo.png" alt="company logo"/>
+  <div class="logo mb-1">
+    <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
   <div>
     <nav>
