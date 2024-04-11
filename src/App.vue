@@ -1,10 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div>
+    <img src="../src/assets/logo.png" alt="company logo"/>
+  </div>
+  <div>
+    <nav>
+      <router-link to="/">AVALEHT</router-link>
+      |
+      <router-link to="/checkout">OSTUKORV</router-link>
+      |
+      <router-link to="#">LOGI SISSE</router-link>
+    </nav>
+  </div>
   <router-view/>
 </template>
+
+<script>
+
+</script>
 
 <style>
 #app {
