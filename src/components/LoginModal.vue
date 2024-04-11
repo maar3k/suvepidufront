@@ -21,7 +21,7 @@
     </template>
     <template #buttons>
       <button @click="executeLogIn" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
-      <button @click="" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
+      <button @click="executeNewUser" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
     </template>
   </Modal>
 
@@ -34,6 +34,12 @@ export default {
   name: 'LoginModal',
   components: {Modal},
 
+  methods: {
+    executeNewUser() {
+      this.$refs.modalRef.closeModal()
+      this.$router.push('/new-user');
+    },
+  }
 }
 
 
