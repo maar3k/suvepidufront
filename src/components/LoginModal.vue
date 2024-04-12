@@ -34,13 +34,49 @@ import router from "@/router";
 export default {
   name: 'LoginModal',
   components: {Modal},
+  data() {
+    return {
+      username: '',
+      password: '',
 
+      loginResponse: {
+        userId: 0,
+        roleName: ''
+      },
+
+      errorResponse: {
+        message: '',
+        errorCode: 0
+      }
+
+    }
+  },
   methods: {
     executeNewUser() {
       this.$refs.modalRef.closeModal()
       router.push({name: 'newUserRoute'})
     },
-  }
+
+    executeLogIn() {
+      this.$http.get('/login', {
+            params: {
+              username: this.username,
+              password: this.password
+            }
+          }
+      ).then(response => {
+        this.loginResponse = response.data
+        this.username = ''
+        this.password = ''
+        this.$refs.modalRef.closeModal()
+        router.push({name: 'checkoutRoute'})
+      }).catch(() => {
+        this.errorResponse.message
+        this.$refs.modalRef.closeModal()
+      })
+    },
+  },
+
 }
 
 
