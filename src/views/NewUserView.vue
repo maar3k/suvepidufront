@@ -1,50 +1,40 @@
 <template>
-  <h1>{{successMessage}}</h1>
-    <div class="container text-center">
-      <div class="row">
-        <div class="col">
-          Konto tüüp
-        </div>
-        <div class="col">
-          <RoleDropdown @event-selected-role-change="setRoleId"/>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <label for="username" class="form-label">Kasutajanimi</label>
-        </div>
-        <div class="col">
-          <input v-model="user.username" type="text" class="form-control" id="username">
+  <h1>{{ successMessage }}</h1>
+  <div class="container text-center">
+    <div class="row justify-content-center ">
+      <div class="col col-5">
+        <div class="input-group mb-3">
+          <span class="input-group-text me-3">Konto tyyp</span>
+          <RoleDropdown @event-selected-role-change="setSelectedRoleId"/>
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col">
-          <label for="password" class="form-label">Parool</label>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col col-5">
+        <div >
+          <UserInfo :role-id="selectedRoleId"/>
         </div>
-        <div class="col">
-          <input v-model="user.password" type="password" class="form-control" id="password">
+        <div v-if="selectedRoleId === 2">
+          <BusinessInfo/>
         </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <label for="password" class="form-label">Parool uuesti</label>
-        </div>
-        <div class="col">
-          <input type="password" class="form-control" id="password">
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-        </div>
-        <div class="col">
-          <button @click="sendPostNewUser" type="submit" class="button-success btn btn-primary text-center text-nowrap">
-            OK
-          </button>
-          <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
-        </div>
+
       </div>
 
     </div>
+
+    <div class="row mt-3">
+      <div class="col">
+
+        <button @click="addNewUser" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+          OK
+        </button>
+        <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </template>
 
@@ -52,12 +42,16 @@
 
 import RoleDropdown from "@/components/RolesDropdown.vue";
 import router from "@/router";
+import UserInfo from "@/views/UserInfo.vue";
+import BusinessInfo from "@/views/BusinessInfo.vue";
 
 export default {
   name: 'NewUserView',
-  components: {RoleDropdown},
+  components: {BusinessInfo, UserInfo, RoleDropdown},
   data() {
     return {
+      selectedRoleId: 0,
+
       successMessage: '',
 
       user: {
@@ -69,6 +63,10 @@ export default {
   },
 
   methods: {
+    addNewUser() {
+    //   if lause, kus sees on kaks meetodit, sendPostNewUser ja else sendPostNewBusiness
+    },
+
     sendPostNewUser() {
       this.$http.post("/new-user", this.user
       ).then(() => {
@@ -78,8 +76,8 @@ export default {
       })
     },
 
-    setRoleId(selectedRoleId) {
-      this.user.roleId = selectedRoleId
+    setSelectedRoleId(selectedRoleId) {
+      this.selectedRoleId = selectedRoleId
     },
 
   }
