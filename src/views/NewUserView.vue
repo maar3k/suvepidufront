@@ -14,7 +14,7 @@
           <label for="username" class="form-label">Kasutajanimi</label>
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="username">
+          <input v-model="user.username" type="text" class="form-control" id="username">
         </div>
       </div>
       <div class="row mt-3">
@@ -22,7 +22,7 @@
           <label for="password" class="form-label">Parool</label>
         </div>
         <div class="col">
-          <input type="password" class="form-control" id="password">
+          <input v-model="user.password" type="password" class="form-control" id="password">
         </div>
       </div>
       <div class="row mt-3">
@@ -77,6 +77,7 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
+
     setRoleId(selectedRoleId) {
       this.user.roleId = selectedRoleId
     },
