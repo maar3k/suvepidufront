@@ -5,11 +5,7 @@
         Konto tüüp
       </div>
       <div class="col">
-        <select class="form-select">
-          <option selected value="0">Vali</option>
-          <option>Tavakasutaja</option>
-          <option>Korraldaja</option>
-        </select>
+        <RoleDropdown/>
       </div>
     </div>
     <div class="row mt-3">
@@ -50,8 +46,11 @@
 
 <script>
 
+import RoleDropdown from "@/components/RolesDropdown.vue";
+
 export default {
   name: 'NewUserView',
+  components: {RoleDropdown},
 
 }
 
