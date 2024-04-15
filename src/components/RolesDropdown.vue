@@ -1,5 +1,5 @@
 <template>
-  <select class="form-select">
+  <select v-model="selectedRoleId" @change="emitSelectedRoleId" class="form-select">
     <option selected value="0">Vali</option>
     <option v-for="role in roles" :value="role.roleId" :key="role.roleId">{{ role.roleName }}</option>
   </select>
@@ -13,6 +13,7 @@ export default {
 
   data() {
     return {
+      selectedRoleId: 0,
       roles: [
         {
           roleId: 0,
@@ -33,7 +34,9 @@ export default {
           })
     },
 
-
+    emitSelectedRoleId() {
+      this.$emit('event-selected-role-change', this.selectedRoleId)
+    },
 
   },
 
