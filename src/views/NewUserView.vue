@@ -7,7 +7,7 @@
       <div class="col col-5">
         <div class="input-group mb-3">
           <span class="input-group-text me-3">Vali konto tüüp</span>
-          <RoleDropdown @event-selected-role-change="setSelectedRoleId"/>
+          <RolesDropdown @event-selected-role-change="setSelectedRoleId"/>
         </div>
       </div>
     </div>
@@ -16,11 +16,11 @@
       <div class="col col-5">
 
         <div>
-          <UserInfo :role-id="selectedRoleId"/>
+          <UserInfo ref="userInfoRef"/>
         </div>
 
         <div v-if="selectedRoleId === 2">
-          <BusinessInfo/>
+          <BusinessInfo ref="businessInfoRef"/>
         </div>
 
       </div>
@@ -41,17 +41,17 @@
 
 <script>
 
-import RoleDropdown from "@/components/RolesDropdown.vue";
+import RolesDropdown from "@/components/RolesDropdown.vue";
 import router from "@/router";
 import UserInfo from "@/components/UserInfo.vue";
 import BusinessInfo from "@/components/BusinessInfo.vue";
 
 export default {
   name: 'NewUserView',
-  components: {BusinessInfo, UserInfo, RoleDropdown},
+  components: {BusinessInfo, UserInfo, RolesDropdown},
   data() {
     return {
-      selectedRoleId: 1,
+      selectedRoleId: 0,
       successMessage: '',
 
       user: {
@@ -62,9 +62,9 @@ export default {
 
       business: {
         companyName: '',
-        registryCode: 0,
+        registryCode: '',
         vatNumber: '',
-        phone: 0,
+        phone: '',
         email: ''
       }
 
@@ -74,10 +74,26 @@ export default {
   methods: {
     addNewUser() {
       if (this.selectedRoleId === 1) {
+        this.getAndSetUserValues()
         this.sendPostNewUser()
       } else if (this.selectedRoleId === 2) {
+        this.getAndSetBusinessValues()
         this.sendPostNewBusiness()
       }
+    },
+
+    getAndSetUserValues() {
+      this.user.roleId = this.selectedRoleId
+      this.user.username = this.$refs.userInfoRef.username
+      this.user.password = this.$refs.userInfoRef.password
+    },
+
+    getAndSetBusinessValues() {
+      this.business.companyName = this.$refs.businessInfoRef.companyName
+      this.business.registryCode = this.$refs.businessInfoRef.registryCode
+      this.business.vatNumber = this.$refs.businessInfoRef.vatNumber
+      this.business.phone = this.$refs.businessInfoRef.phone
+      this.business.email = this.$refs.businessInfoRef.email
     },
 
     sendPostNewUser() {
@@ -97,6 +113,7 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
+
     setSelectedRoleId(selectedRoleId) {
       this.selectedRoleId = selectedRoleId
     }
