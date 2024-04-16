@@ -54,25 +54,28 @@ export default {
       selectedRoleId: 0,
       successMessage: '',
 
-      user: {
+      userInfo: {
         roleId: 0,
         username: '',
         password: ''
       },
 
-      business: {
+      businessInfo: {
+        roleId: 0,
+        username: '',
+        password: '',
         companyName: '',
         registryCode: '',
         vatNumber: '',
         phone: '',
         email: ''
-      }
+      },
 
     }
   },
 
   methods: {
-    addNewUser() {
+    async addNewUser() {
       if (this.selectedRoleId === 1) {
         this.getAndSetUserValues()
         this.sendPostNewUser()
@@ -83,32 +86,35 @@ export default {
     },
 
     getAndSetUserValues() {
-      this.user.roleId = this.selectedRoleId
-      this.user.username = this.$refs.userInfoRef.username
-      this.user.password = this.$refs.userInfoRef.password
+      this.userInfo.roleId = this.selectedRoleId
+      this.userInfo.username = this.$refs.userInfoRef.username
+      this.userInfo.password = this.$refs.userInfoRef.password
     },
 
     getAndSetBusinessValues() {
-      this.business.companyName = this.$refs.businessInfoRef.companyName
-      this.business.registryCode = this.$refs.businessInfoRef.registryCode
-      this.business.vatNumber = this.$refs.businessInfoRef.vatNumber
-      this.business.phone = this.$refs.businessInfoRef.phone
-      this.business.email = this.$refs.businessInfoRef.email
+      this.businessInfo.roleId = this.selectedRoleId
+      this.businessInfo.username = this.$refs.userInfoRef.username
+      this.businessInfo.password = this.$refs.userInfoRef.password
+      this.businessInfo.companyName = this.$refs.businessInfoRef.companyName
+      this.businessInfo.registryCode = this.$refs.businessInfoRef.registryCode
+      this.businessInfo.vatNumber = this.$refs.businessInfoRef.vatNumber
+      this.businessInfo.phone = this.$refs.businessInfoRef.phone
+      this.businessInfo.email = this.$refs.businessInfoRef.email
     },
 
     sendPostNewUser() {
-      this.$http.post("/new-user", this.user
+      this.$http.post("/account/user", this.userInfo
       ).then(() => {
-        this.successMessage = "Uus kasutaja " + this.user.username + " registreeritud!"
+        this.successMessage = "Uus kasutaja " + this.userInfo.username + " registreeritud!"
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
     },
 
     sendPostNewBusiness() {
-      this.$http.post("/new-user", this.business
+      this.$http.post("/account/business", this.businessInfo
       ).then(() => {
-        this.successMessage = "Uus korraldaja " + this.business.companyName + " registreeritud!"
+        this.successMessage = "Uus korraldaja " + this.businessInfo.companyName + " registreeritud!"
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -119,10 +125,10 @@ export default {
     }
 
   },
-
-  beforeMount() {
-    this.setSelectedRoleId()
-  }
+  //
+  // beforeMount() {
+  //   this.setSelectedRoleId()
+  // }
 
 }
 
