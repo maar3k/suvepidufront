@@ -2,7 +2,7 @@
   <div>
 
     <div class="input-group mb-3">
-      <BusinessDropdown v-model="selectedBusinessId"/>
+      <BusinessDropdown v-model="selectedBusinessId" @change="getAndSetSelectedBusinessId"/>
     </div>
 
     <div class="input-group mb-3">
@@ -20,10 +20,10 @@
     </div>
 
     <div class="input-group mb-3">
-      <ImageInput @event-new-image-file-selected="setImageData" />
+      <ImageInput @event-new-image-file-selected="setImageData"/>
     </div>
 
-    <button @click="" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+    <button @click="addNewMainEvent" type="submit" class="button-success btn btn-primary text-center text-nowrap">
       Edasi
     </button>
     <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
@@ -31,8 +31,9 @@
   </div>
 </template>
 <script>
-import BusinessDropdown from "@/components/newaccount/BusinessDropdown.vue";
+import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
 import ImageInput from "@/components/event/ImageInput.vue";
+import router from "@/router";
 
 export default {
   name: 'MainEventInfo',
@@ -50,9 +51,24 @@ export default {
     }
   },
   methods: {
+    addNewMainEvent() {
+      this.$http.post("/event/main", this.mainEventInfo
+      ).then(() => {
+        // router.push jargmine eventi lisamise leht
+      }).catch(error => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
     setImageData(imageData) {
       this.mainEventInfo.imageData = imageData
     },
+
+    getAndSetSelectedBusinessId() {
+      this.mainEventInfo.businessId = this.selectedBusinessId
+    },
+
+
   }
 
 

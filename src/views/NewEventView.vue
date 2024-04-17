@@ -10,7 +10,7 @@
 
 <script>
 import MainEventInfo from "@/components/event/MainEventInfo.vue";
-import BusinessDropdown from "@/components/newaccount/BusinessDropdown.vue";
+import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
 
 export default {
   name: "NewEventView",

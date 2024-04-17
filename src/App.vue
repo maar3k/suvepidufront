@@ -8,6 +8,8 @@
     |
     <router-link to="/checkout">OSTUKORV</router-link>
     |
+    <router-link to="/new-event">LISA UUS SÜNDMUS</router-link>
+    |
     <a href="#" @click="openLoginModal">LOGI SISSE</a>
   </nav>
   <router-view/>

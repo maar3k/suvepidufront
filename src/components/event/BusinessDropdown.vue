@@ -1,5 +1,6 @@
 <template>
   <select v-model="selectedBusinessId" @change="emitSelectedBusinessId" class="form-select">
+    <option selected disabled value="0">Vali etteõte</option>
     <option v-for="business in businesses" :value="business.businessId" :key="business.businessId">
       {{ business.companyName }}
     </option>
