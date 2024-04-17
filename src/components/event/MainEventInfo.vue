@@ -2,25 +2,25 @@
   <div>
 
     <div class="input-group mb-3">
-<!--      siia tuleb business dropdown component (rolesDropdown järgi teha)-->
-<!--      selected businessId-->
+      <BusinessDropdown v-model="selectedBusinessId"/>
     </div>
 
     <div class="input-group mb-3">
       <span class="input-group-text me-3">Pealkiri</span>
-      <input v-model="title" type="text" class="form-control ">
+      <input v-model="mainEventInfo.title" type="text" class="form-control ">
     </div>
 
     <div class="input-group mb-3">
       <div class="form-floating">
-            <textarea v-model="description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+            <textarea v-model="mainEventInfo.description" class="form-control" placeholder="Leave a comment here"
+                      id="floatingTextarea2"
                       style="height: 100px"></textarea>
         <label for="floatingTextarea2">Sündmuse kirjeldus</label>
       </div>
     </div>
 
     <div class="input-group mb-3">
-      <input class="form-control" type="file" id="formFile">
+      <ImageInput/>
     </div>
 
     <button @click="" type="submit" class="button-success btn btn-primary text-center text-nowrap">
@@ -31,14 +31,21 @@
   </div>
 </template>
 <script>
+import BusinessDropdown from "@/components/newaccount/BusinessDropdown.vue";
+import ImageInput from "@/components/event/ImageInput.vue";
+
 export default {
   name: 'MainEventInfo',
+  components: {ImageInput, BusinessDropdown},
   data() {
     return {
-      businessId: 0,
-      title: '',
-      description: '',
-      imageData: ''
+      selectedBusinessId: 0,
+      mainEventInfo: {
+        businessId: 0,
+        title: '',
+        description: '',
+        imageData: ''
+      }
     }
   },
 
