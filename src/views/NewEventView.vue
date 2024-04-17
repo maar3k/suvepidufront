@@ -4,6 +4,8 @@
 
       <MainEventInfo/>
 
+      <FeatureCategoryInfo/>
+
     </div>
   </div>
 </template>
@@ -11,10 +13,11 @@
 <script>
 import MainEventInfo from "@/components/event/MainEventInfo.vue";
 import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
+import FeatureCategoryInfo from "@/components/event/FeatureCategoryInfo.vue";
 
 export default {
   name: "NewEventView",
-  components: {BusinessDropdown, MainEventInfo}
+  components: {FeatureCategoryInfo, BusinessDropdown, MainEventInfo}
 }
 </script>
 

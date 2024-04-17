@@ -34,11 +34,12 @@
 import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
 import ImageInput from "@/components/event/ImageInput.vue";
 import router from "@/router";
+import FeatureCategoryInfo from "@/components/event/FeatureCategoryInfo.vue";
 
 export default {
   name: 'MainEventInfo',
 
-  components: {ImageInput, BusinessDropdown},
+  components: {FeatureCategoryInfo, ImageInput, BusinessDropdown},
   data() {
     return {
       selectedBusinessId: 0,
