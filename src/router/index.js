@@ -1,8 +1,9 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CheckoutView from "@/views/CheckoutView.vue";
-import NewUserView from "@/views/NewUserView.vue";
+import NewUserView from "@/views/NewAccountView.vue";
 import ErrorView from "@/views/ErrorView.vue";
+import NewEventView from "@/views/NewEventView.vue";
 
 const routes = [
   {
@@ -24,7 +25,13 @@ const routes = [
     path: '/error',
     name: 'errorRoute',
     component: ErrorView
-  }
+  },
+  {
+    path: '/new-event',
+    name: 'newEventRoute',
+    component: NewEventView
+  },
+
 ]
 
 const router = createRouter({

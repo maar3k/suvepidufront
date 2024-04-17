@@ -43,8 +43,8 @@
 
 import RolesDropdown from "@/components/RolesDropdown.vue";
 import router from "@/router";
-import UserInfo from "@/components/UserInfo.vue";
-import BusinessInfo from "@/components/BusinessInfo.vue";
+import UserInfo from "@/components/newaccount/UserInfo.vue";
+import BusinessInfo from "@/components/newaccount/BusinessInfo.vue";
 
 export default {
   name: 'NewUserView',
