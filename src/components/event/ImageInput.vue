@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input class="form-control" type="file" id="formFile">
+    <input ref="fileInputRef" class="form-control" type="file" @change="handleImage" accept="image/x-png,image/jpeg,image/gif">
   </div>
 </template>
 <script>

@@ -20,7 +20,7 @@
     </div>
 
     <div class="input-group mb-3">
-      <ImageInput/>
+      <ImageInput @event-new-image-file-selected="setImageData" />
     </div>
 
     <button @click="" type="submit" class="button-success btn btn-primary text-center text-nowrap">
@@ -36,6 +36,7 @@ import ImageInput from "@/components/event/ImageInput.vue";
 
 export default {
   name: 'MainEventInfo',
+
   components: {ImageInput, BusinessDropdown},
   data() {
     return {
@@ -48,6 +49,12 @@ export default {
       }
     }
   },
+  methods: {
+    setImageData(imageData) {
+      this.mainEventInfo.imageData = imageData
+    },
+  }
+
 
 }
 </script>
