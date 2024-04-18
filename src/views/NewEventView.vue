@@ -1,13 +1,16 @@
 <template>
   <div class="row justify-content-center">
     <div class="col col-5">
-
       <MainEventInfo/>
-
-      <FeatureCategoryInfo/>
-
     </div>
   </div>
+
+  <div class="row justify-content-center">
+    <div class="col col-5">
+      <FeatureCategoryInfo/>
+    </div>
+  </div>
+
 </template>
 
 <script>

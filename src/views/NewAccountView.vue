@@ -75,7 +75,7 @@ export default {
   },
 
   methods: {
-    async addNewUser() {
+    addNewUser() {
       if (this.selectedRoleId === 1) {
         this.getAndSetUserValues()
         this.sendPostNewUser()
@@ -125,10 +125,6 @@ export default {
     }
 
   },
-  //
-  // beforeMount() {
-  //   this.setSelectedRoleId()
-  // }
 
 }
 

@@ -1,10 +1,15 @@
 <template>
-  <div class="form-check form-switch">
+  <div v-for="feature in features" :key="feature.featureId"  class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-<!--    value ilmselt ei toota labeliga, seega vaja uurida, et kuidas v-for toole saada-->
-    <label v-for="feature in features" :value="feature.featureId" :key="feature.featureId" class="form-check-label"
+    <label class="form-check-label"
            for="flexSwitchCheckDefault">{{ feature.featureName }}</label>
   </div>
+
+  <button @click="" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+    Edasi
+  </button>
+  <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
+
 </template>
 
 <script>
@@ -22,14 +27,9 @@ export default {
   },
   methods: {
     sendGetFeaturesRequest() {
-      this.$http.get("/event/feature", {
-            params: {
-              featureId: this.features.featureId,
-              someRequestParam1: this.someDataBlockVariable1,
-            }
-          }
+      this.$http.get("/event/feature"
       ).then(response => {
-        const responseJSON = response.data
+        this.features = response.data
       }).catch(error => {
         const errorResponseJSON = error.response.data
       })
