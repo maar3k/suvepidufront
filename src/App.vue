@@ -8,7 +8,9 @@
     |
     <router-link to="/checkout">OSTUKORV</router-link>
     |
-    <router-link to="/new-event">LISA UUS SÜNDMUS</router-link>
+    <router-link to="/main-event">LISA UUS SÜNDMUS</router-link>
+    |
+    <router-link to="/feature-category">KATEGOORIAD</router-link>
     |
     <a href="#" @click="openLoginModal">LOGI SISSE</a>
   </nav>
@@ -17,7 +19,7 @@
 
 <script>
 
-import LoginModal from "@/components/LoginModal.vue";
+import LoginModal from "@/components/modal/LoginModal.vue";
 
 export default {
   name: 'App',

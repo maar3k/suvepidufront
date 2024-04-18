@@ -41,7 +41,7 @@
 
 <script>
 
-import RolesDropdown from "@/components/RolesDropdown.vue";
+import RolesDropdown from "@/components/newaccount/RolesDropdown.vue";
 import router from "@/router";
 import UserInfo from "@/components/newaccount/UserInfo.vue";
 import BusinessInfo from "@/components/newaccount/BusinessInfo.vue";
