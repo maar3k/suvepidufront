@@ -41,14 +41,11 @@ import FeatureCategoryInfo from "@/views/FeatureCategoryView.vue";
 import {useRoute} from "vue-router";
 
 export default {
-  name: 'MainEventInfo',
+  name: 'MainEventView',
 
   components: {FeatureCategoryInfo, ImageInput, BusinessDropdown},
   data() {
     return {
-      // URL + query/request parameter näide:
-      // locationId: useRoute().query.locationId,
-      mainEvenIdFromUrl: useRoute().query.mainEventId,
       selectedBusinessId: 0,
       mainEventInfo: {
         businessId: 0,
@@ -63,12 +60,8 @@ export default {
       this.$http.post("/event/main", this.mainEventInfo
       ).then(response => {
         const mainEventId = response.data
-        // router.push jargmine eventi lisamise leht, edasta ka mainEventId
-
-        // URL + query/request parameter näide:
-        // router.push({name: 'locationRoute', query: {locationId: locationId}})
-        router.push({name: 'feateureCategoryRoute', query: {mainEventId: mainEventId}})
-      }).catch(error => {
+        router.push({name: 'featureCategoryRoute', query: {mainEventId: mainEventId}})
+      }).catch(() => {
         router.push({name: 'errorRoute'})
       })
     },

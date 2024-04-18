@@ -10,10 +10,10 @@
     </div>
 
     <div class="col col-5">
-      <div v-for="feature in features" :key="feature.featureId" class="form-check form-switch">
+      <div v-for="category in categories" :key="category.categoryId" class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
         <label class="form-check-label"
-               for="flexSwitchCheckDefault">{{ feature.featureName }}</label>
+               for="flexSwitchCheckDefault">{{ category.categoryName }}</label>
       </div>
     </div>
 
@@ -28,14 +28,25 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
-  name: "FeatureCategoryInfo",
+  name: "FeatureCategoryView",
   data() {
     return {
+      mainEventIdFromUrl: useRoute().query.mainEventId,
+
       features: [
         {
           featureId: 0,
           featureName: ''
+        }
+      ],
+
+      categories: [
+        {
+          categoryId: 0,
+          categoryName: ''
         }
       ]
     }
@@ -45,15 +56,35 @@ export default {
       this.$http.get("/feature"
       ).then(response => {
         this.features = response.data
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
+
+    sendGetCategoriesRequest() {
+      this.$http.get("/category")
+          .then(response => {
+            this.categories = response.data
+          })
+          .catch(() => {
+            router.push({name: 'errorRoute'})
+          })
+    },
+
+
+
+
+    // post http meetod: addEventCategories()
+    // url/event/category?mainEventId=12
+
+    // post http meetod: addEventFeatures()
+    // url/event/feature?mainEventId=12
 
 
   },
   beforeMount() {
     this.sendGetFeaturesRequest()
+    this.sendGetCategoriesRequest()
   }
 
 }
