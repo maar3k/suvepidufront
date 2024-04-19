@@ -11,6 +11,13 @@
     <router-link to="/main-event">LISA UUS SÜNDMUS</router-link>
     |
     <router-link to="/feature-category">KATEGOORIAD</router-link>
+
+    |
+    <router-link to="/events">Minu sündmused</router-link>
+    |
+
+    |
+    <router-link to="/event-details">Suvegrill</router-link>
     |
     <a href="#" @click="openLoginModal">LOGI SISSE</a>
   </nav>

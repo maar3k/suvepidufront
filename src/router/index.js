@@ -5,6 +5,10 @@ import NewUserView from "@/views/NewAccountView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import MainEventView from "@/views/MainEventView.vue";
 import FeatureCategoryView from "@/views/FeatureCategoryView.vue";
+import EventDetailsView from "@/views/EventDetailsView.vue";
+import EventsView from "@/views/EventsView.vue";
+import EventTicketTypesView from "@/views/EventTicketTypesView.vue";
+import EventTicketsView from "@/views/EventTicketsView.vue";
 
 const routes = [
     {
@@ -32,11 +36,30 @@ const routes = [
         name: 'mainEventRoute',
         component: MainEventView
     },
-
     {
         path: '/feature-category',
         name: 'featureCategoryRoute',
         component: FeatureCategoryView
+    },
+    {
+        path: '/events',
+        name: 'eventsRoute',
+        component: EventsView
+    },
+    {
+        path: '/event-details',
+        name: 'eventDetailsRoute',
+        component: EventDetailsView
+    },
+    {
+        path: '/event-ticket-types',
+        name: 'eventTicketTypesRoute',
+        component: EventTicketTypesView
+    },
+    {
+        path: '/event-tickets',
+        name: 'eventTicketsRoute',
+        component: EventTicketsView
     },
 
 ]

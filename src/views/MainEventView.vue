@@ -38,7 +38,6 @@ import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
 import ImageInput from "@/components/event/ImageInput.vue";
 import router from "@/router";
 import FeatureCategoryInfo from "@/views/FeatureCategoryView.vue";
-import {useRoute} from "vue-router";
 
 export default {
   name: 'MainEventView',
