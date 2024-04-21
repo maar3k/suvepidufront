@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-8">
 
-        <table class="table">
+        <table class="table table-hover">
           <thead>
           <tr>
             <th scope="col">Nimi</th>
@@ -20,12 +20,12 @@
           </thead>
           <tbody>
           <tr>
-            <td>Suvegrill 2024</td>
-            <td>Korralik pidu!</td>
-            <td>Pilt placeholder</td>
+            <td>{{ this.title }}</td>
+            <td>{{this.description}}</td>
+            <td><button @click="" type="button" class="btn btn-primary">Kuva pilt</button></td>
             <td><button @click="navigateToFeaturesCategories" type="button" class="btn btn-primary">Featurid</button></td>
             <td><button @click="navigateToEventDetails" type="button" class="btn btn-primary">Toimumiskohad</button></td>
-            <td><button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletituubid</button></td>
+            <td><button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletitüübid</button></td>
           </tr>
 
           </tbody>
@@ -46,6 +46,19 @@ import router from "@/router";
 
 export default {
   name: "EventsView",
+
+  data() {
+    return {
+
+        mainEventId: 0,
+        businessId: 0,
+        title: 'Test event',
+        description: 'Test description',
+        imageData: ''
+
+    }
+  },
+
   methods: {
     navigateToFeaturesCategories() {
       router.push({name: 'featureCategoryRoute'})
@@ -59,6 +72,9 @@ export default {
     navigateToTicketTypes() {
       router.push({name: 'eventTicketTypesRoute'})
     },
+
+
+
   }
 }
 </script>
