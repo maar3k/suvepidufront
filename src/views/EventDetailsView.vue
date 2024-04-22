@@ -67,12 +67,12 @@ export default {
     },
 
     openEventDetailsModal() {
-this.$refs.eventDetailsModalRef.$refs.modalRef.openModal()
-    }
-
+      this.$refs.eventDetailsModalRef.$refs.modalRef.openModal()
     }
 
   }
+
+}
 
 </script>
 
