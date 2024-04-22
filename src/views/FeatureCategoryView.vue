@@ -19,7 +19,7 @@
     </div>
 
     <div>
-      <button @click="sendPostEventFeaturesRequest" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+      <button @click="sendPostEventFeaturesAndCategoriesRequest" type="submit" class="button-success btn btn-primary text-center text-nowrap">
         Edasi
       </button>
       <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
@@ -49,7 +49,8 @@ export default {
       categories: [
         {
           categoryId: 0,
-          categoryName: ''
+          categoryName: '',
+          isAvailable: false
         }
       ]
     }
@@ -82,22 +83,27 @@ export default {
           }
       ).then(() => {
         this.numberRequestsSuccessfullySent++
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        //const errorResponseJSON = error.response.data
       })
     },
 
     sendPostEventCategoriesRequest() {
-      this.$http.post("/event/categories/", null, {
+      this.$http.post("/event/categories/", this.categories, {
             params: {
               mainEventId: this.mainEventId
             }
           }
       ).then(() => {
         this.numberRequestsSuccessfullySent++
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        //const errorResponseJSON = error.response.data
       })
+    },
+
+    sendPostEventFeaturesAndCategoriesRequest() {
+      this.sendPostEventFeaturesRequest()
+      this.sendPostEventCategoriesRequest()
     },
 
     // post http meetod: addEventCategories()

@@ -20,13 +20,12 @@
           </thead>
           <tbody>
           <tr>
-
             <td>Suvegrill 2024</td>
             <td>Korralik pidu!</td>
             <td>Pilt placeholder</td>
             <td><button @click="navigateToFeaturesCategories" type="button" class="btn btn-primary">Featurid</button></td>
             <td><button @click="navigateToEventDetails" type="button" class="btn btn-primary">Toimumiskohad</button></td>
-            <td><button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletituubid</button></td>
+            <td><button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletitüübid</button></td>
           </tr>
 
           </tbody>
