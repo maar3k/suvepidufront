@@ -3,8 +3,7 @@
 
     <div class="col col-5">
       <div v-for="feature in features" :key="feature.featureId" class="form-check form-switch">
-        <input v-model="feature.isAvailable" class="form-check-input" type="checkbox" role="switch"
-               id="flexSwitchCheckDefault">
+        <input v-model="feature.isAvailable" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
         <label class="form-check-label"
                for="flexSwitchCheckDefault">{{ feature.featureName }}</label>
       </div>
@@ -12,7 +11,7 @@
 
     <div class="col col-5">
       <div v-for="category in categories" :key="category.categoryId" class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <input v-model="category.isAvailable" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
         <label class="form-check-label"
                for="flexSwitchCheckDefault">{{ category.categoryName }}</label>
       </div>
