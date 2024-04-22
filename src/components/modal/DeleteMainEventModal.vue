@@ -46,6 +46,7 @@ export default {
       ).then(() => {
         this.closeDeleteMainEventModal()
         router.push({name: 'eventsRoute'})
+        this.$emit('event-deleted')
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

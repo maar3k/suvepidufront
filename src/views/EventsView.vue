@@ -1,5 +1,5 @@
 <template>
-  <DeleteMainEventModal ref="deleteMainEventModal"/>
+  <DeleteMainEventModal @event-deleted="eventDeleted" ref="deleteMainEventModal"/>
   <div class="container text-center">
     <h1>Minu sündmused</h1>
 
@@ -133,6 +133,10 @@ export default {
       this.selectedBusinessId = selectedBusinessId
       this.sendGetMainEventsRequest()
     },
+
+    eventDeleted() {
+      this.sendGetMainEventsRequest()
+    }
 
 
   },
