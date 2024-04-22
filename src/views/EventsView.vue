@@ -20,6 +20,7 @@
           </thead>
           <tbody>
           <tr>
+
             <td>Suvegrill 2024</td>
             <td>Korralik pidu!</td>
             <td>Pilt placeholder</td>
@@ -57,8 +58,11 @@ export default {
       router.push({name: 'mainEventRoute'})
     },
     navigateToTicketTypes() {
+      // siia peab kaasa votma selected mainEventId, selle eelduseks et pärime andmed backendist
       router.push({name: 'eventTicketTypesRoute'})
     },
+
+  //   siia on vaja kõigepealt tuua get meetodiga main eventid, getMainEventsByBusinessId. Tagastab massivi eventidest.
   }
 }
 </script>

@@ -36,7 +36,6 @@ export default {
   name: "FeatureCategoryView",
   data() {
     return {
-      // mainEventIdFromUrl: useRoute().query.mainEventId,
       mainEventId: Number(useRoute().query.mainEventId),
       numberRequestsSuccessfullySent: 0,
       features: [
