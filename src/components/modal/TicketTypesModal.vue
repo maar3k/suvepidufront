@@ -64,6 +64,8 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
+
+  //   getTicketTypesByMainEventId, et neid siia kuvada. mainEventId tuleb siis külge, kui EventsView on tehtud korda, siis tuleb urlist
   }
 }
 </script>
