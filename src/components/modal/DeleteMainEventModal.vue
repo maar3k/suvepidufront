@@ -37,16 +37,6 @@ export default {
     }
   },
   methods: {
-    // sendDeleteMainEventRequest() {
-    //   this.$http.delete("/event/main"
-    //   ).then(response => {
-    //     this.mainEventId = response.data
-    //     this.$refs.modalRef.closeModal()
-    //   }).catch(() => {
-    //     router.push({name: 'errorRoute'})
-    //   })
-    // },
-
     sendDeleteMainEventRequest() {
       this.$http.delete("/event/main", {
             params: {
@@ -56,8 +46,8 @@ export default {
       ).then(() => {
         this.closeDeleteMainEventModal()
         router.push({name: 'eventsRoute'})
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
 
