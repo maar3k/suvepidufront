@@ -2,8 +2,8 @@
   <div class="row justify-content-center">
     <div class="col col-5">
 
-      <div class="input-group mb-3">
-        <BusinessDropdown v-model="selectedBusinessId" @change="getAndSetSelectedBusinessId"/>
+      <div v-if="this.mainEventId === undefined" class="input-group mb-3">
+        <BusinessDropdown v-model="selectedBusinessId" @event-selected-business-change="setSelectedBusinessId"/>
       </div>
 
       <div class="input-group mb-3">
@@ -24,8 +24,8 @@
         <ImageInput @event-new-image-file-selected="setImageData"/>
       </div>
 
-      <button @click="addNewMainEvent" type="submit" class="button-success btn btn-primary text-center text-nowrap">
-        Edasi
+      <button @click="addOrUpdateMainEvent" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+        OK
       </button>
       <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
 
@@ -38,6 +38,7 @@ import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
 import ImageInput from "@/components/event/ImageInput.vue";
 import router from "@/router";
 import FeatureCategoryInfo from "@/views/FeatureCategoryView.vue";
+import {useRoute} from "vue-router";
 
 export default {
   name: 'MainEventView',
@@ -46,34 +47,89 @@ export default {
   data() {
     return {
       selectedBusinessId: 0,
+      mainEventId: useRoute().query.mainEventId,
+
       mainEventInfo: {
-        businessId: 0,
         title: '',
         description: '',
-        imageData: ''
-      }
+        imageData: '',
+        mainEventId: 0
+      },
     }
   },
   methods: {
+    addOrUpdateMainEvent() {
+      if (this.mainEventInfo.mainEventId !== 0) {
+        this.editMainEvent()
+      } else {
+        this.addNewMainEvent()
+      }
+    },
     addNewMainEvent() {
-      this.$http.post("/event/main", this.mainEventInfo
+      const newEventInfoDto = {
+        title: this.mainEventInfo.title,
+        description: this.mainEventInfo.description,
+        imageData: this.mainEventInfo.imageData
+      }
+
+      this.$http.post("/event/main", newEventInfoDto, {
+            params: {
+              businessId: this.selectedBusinessId
+            }
+          }
       ).then(response => {
-        const mainEventId = response.data
-        router.push({name: 'featureCategoryRoute', query: {mainEventId: mainEventId}})
+        const id = response.data
+        router.push({name: 'featureCategoryRoute', query: {mainEventId: id}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
     },
 
+    editMainEvent() {
+      this.$http.put("/event/main", this.mainEventInfo
+      ).then(() => {
+        router.push({name: 'eventsRoute'})
+      }).catch(error => {
+        const errorResponseJSON = error.response.data
+      })
+    },
+
+
     setImageData(imageData) {
       this.mainEventInfo.imageData = imageData
     },
 
-    getAndSetSelectedBusinessId() {
-      this.mainEventInfo.businessId = this.selectedBusinessId
+    setSelectedBusinessId(selectedBusinessId) {
+      this.selectedBusinessId = selectedBusinessId
+    },
+
+    getMainEventIdFromUrlQueryParameter() {
+      console.log(this.mainEventId)
+      if (this.mainEventId !== undefined) {
+        const mainEventId = Number(this.mainEventId);
+        this.sendGetMainEventRequest(mainEventId)
+      }
+    },
+
+    sendGetMainEventRequest(mainEventId) {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventInfo = response.data
+      }).catch(error => {
+        const errorResponseJSON = error.response.data
+      })
     },
 
 
+
+
+  },
+  beforeMount() {
+    this.getMainEventIdFromUrlQueryParameter()
   }
 
 

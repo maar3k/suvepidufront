@@ -2,8 +2,13 @@
   <DeleteMainEventModal ref="deleteMainEventModal"/>
   <div class="container text-center">
     <h1>Minu sündmused</h1>
+
+    <div class="input-group mb-3">
+      <BusinessDropdown v-model="selectedBusinessId" @event-selected-business-change="setSelectedBusinessId"/>
+    </div>
+
     <div class="row">
-      <div class="col-8">
+      <div class="col-12">
 
         <table class="table">
           <thead>
@@ -19,12 +24,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="mainEventInfo in mainEventInfos" :key="mainEventInfo.mainEventId">
+          <tr v-for="mainEventInfo in mainEvents" :key="mainEventInfo.mainEventId">
             <td>{{ mainEventInfo.title }}</td>
             <td>{{ mainEventInfo.description }}</td>
-            <td>{{ mainEventInfo.imageData }}</td>
             <td>
-              <button @click="navigateToFeaturesCategories" type="button" class="btn btn-primary">Võimalused ja kategooriad</button>
+              <EventImage :image-data="mainEventInfo.imageData"/>
+            </td>
+            <td>
+              <button @click="navigateToFeaturesCategories(mainEventInfo.mainEventId)" type="button"
+                      class="btn btn-primary">Võimalused ja
+                kategooriad
+              </button>
             </td>
             <td>
               <button @click="navigateToEventDetails" type="button" class="btn btn-primary">Toimumiskohad</button>
@@ -33,11 +43,11 @@
               <button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletitüübid</button>
             </td>
             <td>
-              <font-awesome-icon @click="" class="cursor-pointer"
+              <font-awesome-icon @click="navigateToEditEvent(mainEventInfo.mainEventId)" class="cursor-pointer"
                                  :icon="['far', 'pen-to-square']"/>
             </td>
             <td>
-              <font-awesome-icon @click="openDeleteMainEventModal" class="cursor-pointer"
+              <font-awesome-icon @click="openDeleteMainEventModal(mainEventInfo.mainEventId)" class="cursor-pointer"
                                  :icon="['far', 'trash-can']"/>
             </td>
 
@@ -56,18 +66,19 @@
 </template>
 <script>
 import router from "@/router";
-import {useRoute} from "vue-router";
 import DeleteMainEventModal from "@/components/modal/DeleteMainEventModal.vue";
+import BusinessDropdown from "@/components/event/BusinessDropdown.vue";
+import EventImage from "@/components/image/EventImage.vue";
 
 export default {
   name: "EventsView",
-  components: {DeleteMainEventModal},
+  components: {EventImage, BusinessDropdown, DeleteMainEventModal},
   data() {
     return {
-      selectedBusinessId: Number(useRoute().query.selectedBusinessId),
-      mainEventInfos: [
+      selectedBusinessId: 0,
+
+      mainEvents: [
         {
-          businessId: 0,
           title: '',
           description: '',
           imageData: '',
@@ -77,49 +88,53 @@ export default {
     }
   },
   methods: {
-    navigateToFeaturesCategories() {
+    navigateToFeaturesCategories(mainEventId) {
+      alert("todo navigeeeri õigele lehele mainEventId kaasa " + mainEventId)
       router.push({name: 'featureCategoryRoute'})
     },
+
     navigateToEventDetails() {
       router.push({name: 'eventDetailsRoute'})
     },
+
     navigateToAddEvent() {
       router.push({name: 'mainEventRoute'})
     },
+
+    navigateToEditEvent(mainEventId) {
+      router.push({name: 'mainEventRoute', query: {mainEventId: mainEventId}})
+    },
+
     navigateToTicketTypes() {
       // siia peab kaasa votma selected mainEventId, selle eelduseks et pärime andmed backendist
       router.push({name: 'eventTicketTypesRoute'})
     },
 
-    getMainEvents() {
-      //   see ei tööta hetkel, sest businessID ei tule kaasa. Kust see tuleb?
+    sendGetMainEventsRequest() {
       this.$http.get("/events/main", {
             params: {
-              mainEventInfo: this.mainEventInfo,
+              businessId: this.selectedBusinessId
             }
           }
       ).then(response => {
-        this.mainEventInfo = response.data
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+        this.mainEvents = response.data
+
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
 
-
-
-    openDeleteMainEventModal() {
+    openDeleteMainEventModal(mainEventId) {
+      this.$refs.deleteMainEventModal.mainEventId = mainEventId;
       this.$refs.deleteMainEventModal.$refs.modalRef.openModal()
+    },
+
+    setSelectedBusinessId(selectedBusinessId) {
+      this.selectedBusinessId = selectedBusinessId
+      this.sendGetMainEventsRequest()
     },
 
 
   },
-  beforeMount() {
-    this.getMainEvents()
-  }
 }
 </script>
-
-
-<style scoped>
-
-</style>

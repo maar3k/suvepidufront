@@ -7,10 +7,13 @@
       <p>Kas sa oled kindel, et soovid sündmust kustutada?</p>
     </template>
     <template #buttons>
-      <button @click="sendDeleteMainEventRequest" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+      <button @click="sendDeleteMainEventRequest" type="submit"
+              class="button-success btn btn-primary text-center text-nowrap">
         Jah
       </button>
-      <button @click="closeDeleteMainEventModal" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
+      <button @click="closeDeleteMainEventModal" type="submit"
+              class="button-cancel btn btn-primary text-center text-nowrap">Loobu
+      </button>
     </template>
   </Modal>
 </template>
@@ -24,6 +27,9 @@ import {useRoute} from "vue-router";
 export default {
   name: "DeleteMainEventModal",
   components: {Modal},
+  props: {
+    mainEventId: Number
+  },
   data() {
     return {
       selectedMainEventId: Number(useRoute().query.selectedMainEventId),
@@ -31,13 +37,27 @@ export default {
     }
   },
   methods: {
+    // sendDeleteMainEventRequest() {
+    //   this.$http.delete("/event/main"
+    //   ).then(response => {
+    //     this.mainEventId = response.data
+    //     this.$refs.modalRef.closeModal()
+    //   }).catch(() => {
+    //     router.push({name: 'errorRoute'})
+    //   })
+    // },
+
     sendDeleteMainEventRequest() {
-      this.$http.delete("/event/main"
-      ).then(response => {
-        this.mainEventId = response.data
-        this.$refs.modalRef.closeModal()
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
+      this.$http.delete("/event/main", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(() => {
+        this.closeDeleteMainEventModal()
+        router.push({name: 'eventsRoute'})
+      }).catch(error => {
+        const errorResponseJSON = error.response.data
       })
     },
 

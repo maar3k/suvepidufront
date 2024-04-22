@@ -43,13 +43,14 @@
 
 <script>
 import TicketTypesModal from "@/components/modal/TicketTypesModal.vue";
+import {useRoute} from "vue-router";
 
 export default {
   name: "EventTicketTypesView",
   components: {TicketTypesModal},
   data() {
     return {
-
+      mainEventId: Number(useRoute().query.mainEventId),
     }
   },
   methods: {
