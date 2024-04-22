@@ -36,7 +36,7 @@ export default {
       ).then(response => {
         this.mainEventId = response.data
         this.$refs.modalRef.closeModal()
-      }).catch(error => {
+      }).catch(() => {
         router.push({name: 'errorRoute'})
       })
     },
