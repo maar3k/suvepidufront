@@ -24,7 +24,8 @@
         <ImageInput @event-new-image-file-selected="setImageData"/>
       </div>
 
-      <button @click="addOrUpdateMainEvent" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+      <button @click="addOrUpdateMainEvent" type="submit"
+              class="button-success btn btn-primary text-center text-nowrap">
         OK
       </button>
       <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
@@ -65,6 +66,7 @@ export default {
         this.addNewMainEvent()
       }
     },
+
     addNewMainEvent() {
       const newEventInfoDto = {
         title: this.mainEventInfo.title,
@@ -94,7 +96,6 @@ export default {
       })
     },
 
-
     setImageData(imageData) {
       this.mainEventInfo.imageData = imageData
     },
@@ -123,9 +124,6 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
-
-
-
 
   },
   beforeMount() {

@@ -13,25 +13,14 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Penskarid</td>
-            <td>5</td>
+          <tr v-for="ticketType in ticketTypes" :key="ticketType.ticketTypeId">
+            <td>{{ ticketType.ticketTypeName }}</td>
+            <td>{{ ticketType.ticketTypePrice }}</td>
           </tr>
-          <tr>
-            <td>Taiskasvanu</td>
-            <td>25</td>
-          </tr>
-          <tr>
-            <td>Lapsed</td>
-            <td>0</td>
-          </tr>
-
           </tbody>
         </table>
         <font-awesome-icon @click="openTicketTypesModal" :icon="['fas', 'plus']"/>
-
       </div>
-
     </div>
 
     <div>
@@ -44,6 +33,7 @@
 <script>
 import TicketTypesModal from "@/components/modal/TicketTypesModal.vue";
 import {useRoute} from "vue-router";
+import router from "@/router";
 
 export default {
   name: "EventTicketTypesView",
@@ -51,12 +41,39 @@ export default {
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
+
+      ticketTypes: [
+        {
+          ticketTypeName: '',
+          ticketTypePrice: 0,
+          ticketTypeId: 0,
+          mainEventId: 0
+        }
+      ]
     }
   },
   methods: {
     openTicketTypesModal() {
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
+
+    sendGetTicketTypesRequest() {
+      console.log(this.mainEventId)
+      this.$http.get("/ticket-types", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(response => {
+        this.ticketTypes = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+  },
+
+  beforeMount() {
+    this.sendGetTicketTypesRequest()
   }
 }
 

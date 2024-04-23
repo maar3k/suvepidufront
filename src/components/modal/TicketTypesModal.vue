@@ -26,6 +26,9 @@
 
     <template #buttons>
       <button @click="addNewTicketType" type="submit" class="btn btn-primary">Lisa</button>
+      <button @click="closeTicketTypesModal" type="submit"
+              class="button-cancel btn btn-primary text-center text-nowrap">Loobu
+      </button>
     </template>
 
   </Modal>
@@ -51,7 +54,6 @@ export default {
   },
   methods: {
     addNewTicketType() {
-      alert(this.mainEventId)
       this.$http.post("ticket-type", this.ticketTypeInfo, {
             params: {
               mainEventId: this.mainEventId
@@ -60,9 +62,14 @@ export default {
       ).then(response => {
         const mainEventId = response.data
         router.push({name: 'eventTicketTypesRoute', query: {mainEventId: mainEventId}})
+        this.closeTicketTypesModal()
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
+    },
+
+    closeTicketTypesModal() {
+      this.$refs.modalRef.closeModal()
     },
 
   }
