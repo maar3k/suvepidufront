@@ -18,18 +18,19 @@
             <td>{{ ticketType.ticketTypeName }}</td>
             <td>{{ ticketType.ticketTypePrice }}</td>
             <td>
-              <font-awesome-icon @click="navigateToEditTicketType(ticketType.ticketTypeId)" class="cursor-pointer"
+              <font-awesome-icon @click="openTicketTypesModalEdit(ticketType.ticketTypeId)" class="cursor-pointer"
                                  :icon="['far', 'pen-to-square']"/>
             </td>
           </tr>
           </tbody>
         </table>
-        <font-awesome-icon @click="openTicketTypesModal(ticketTypeId)" :icon="['fas', 'plus']"/>
+        <font-awesome-icon @click="openTicketTypesModalNew()" :icon="['fas', 'plus']"/>
       </div>
     </div>
 
     <div>
-      <TicketTypesModal ref="ticketTypesModalRef" :ticket-type-id="ticketTypeId"/>
+      <TicketTypesModal ref="ticketTypesModalRef" />
+<!--      siin modali tagi sees kinni püüda modalist saadetud emit ja suunata uude meetodisse kus teha page refresh-->
     </div>
 
   </div>
@@ -43,9 +44,10 @@ import router from "@/router";
 export default {
   name: "EventTicketTypesView",
   components: {TicketTypesModal},
-  props: {
-    ticketTypeId: Number
-  },
+  // props: {
+  //   ticketTypeId: Number
+  // props läheb lapse sisse ehk antud juhul TicketTypesModal
+  // },
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
@@ -60,13 +62,15 @@ export default {
     }
   },
   methods: {
-    openTicketTypesModal(ticketTypeId) {
-      this.ticketTypeId = ticketTypeId
+    openTicketTypesModalNew() {
+      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(0);
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
-    navigateToEditTicketType() {
-      this.openTicketTypesModal()
+    openTicketTypesModalEdit(ticketTypeId) {
+      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(ticketTypeId);
+      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis
+      this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
     sendGetTicketTypesRequest() {

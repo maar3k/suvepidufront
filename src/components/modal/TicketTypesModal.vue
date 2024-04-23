@@ -12,11 +12,11 @@
           <div class="col">
             <div class="mb-3">
               <label for="ticket-type" class="form-label">Piletitüüp</label>
-              <input v-model="ticketTypeInfo.ticketTypeName" type="text" class="form-control" id="ticket-type">
+              <input v-model="ticketTypeInfoExtended.ticketTypeName" type="text" class="form-control" id="ticket-type">
             </div>
             <div class="mb-3">
               <label for="ticket-price" class="form-label">Hind</label>
-              <input v-model="ticketTypeInfo.ticketTypePrice" type="number" class="form-control" id="ticket-price">
+              <input v-model="ticketTypeInfoExtended.ticketTypePrice" type="number" class="form-control" id="ticket-price">
             </div>
           </div>
         </div>
@@ -42,17 +42,16 @@ import {useRoute} from "vue-router";
 export default {
   name: "TicketTypesModal",
   components: {Modal},
-  props: {
-    ticketTypeId: Number
-  },
+  // props: {
+  //   // ticketTypeId: {
+  //   //   type: Number,
+  //   //   default: 0
+  //   // }
+  //   ticketTypeId: Number
+  // },
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
-
-      ticketTypeInfo: {
-        ticketTypeName: '',
-        ticketTypePrice: 0,
-      },
 
       ticketTypeInfoExtended: {
         ticketTypeName: '',
@@ -64,7 +63,7 @@ export default {
   },
   methods: {
     addOrUpdateTicketType() {
-      if (this.ticketTypeId !== 0) {
+      if (this.ticketTypeInfoExtended.ticketTypeId !== 0) {
         this.editTicketType()
       } else {
         this.addNewTicketType()
@@ -72,14 +71,18 @@ export default {
     },
 
     addNewTicketType() {
-      this.$http.post("ticket-type", this.ticketTypeInfo, {
+      const ticketTypeInfo = {
+        ticketTypeName: this.ticketTypeInfoExtended.ticketTypeName,
+        ticketTypePrice: this.ticketTypeInfoExtended.ticketTypePrice
+      }
+
+      this.$http.post("ticket-type", ticketTypeInfo, {
             params: {
               mainEventId: this.mainEventId
             }
           }
       ).then(response => {
-        const mainEventId = response.data
-        router.push({name: 'eventTicketTypesRoute', query: {mainEventId: mainEventId}})
+        // todo: refreshi parent component
         this.closeTicketTypesModal()
       }).catch(() => {
         router.push({name: 'errorRoute'})
@@ -90,17 +93,10 @@ export default {
       this.$http.put("/ticket-type", this.ticketTypeInfoExtended
       ).then(() => {
         router.push({name: 'eventTicketTypesRoute'})
+        // TODO: $emit parentisse, et tee refresh
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
-    },
-
-    getTicketTypeIdFromUrlQueryParameter() {
-      console.log(this.ticketTypeId)
-      if (this.ticketTypeId !== undefined) {
-        const ticketTypeId = Number(this.ticketTypeId);
-        this.sendGetTicketTypeRequest(ticketTypeId)
-      }
     },
 
     sendGetTicketTypeRequest(ticketTypeId) {
@@ -120,9 +116,15 @@ export default {
       this.$refs.modalRef.closeModal()
     },
 
+    decideIfNewOrEditTicketType(ticketTypeId) {
+      if (ticketTypeId !== 0) {
+        this.sendGetTicketTypeRequest(ticketTypeId)
+      }
+    },
+
   },
-  beforeMount() {
-    this.getTicketTypeIdFromUrlQueryParameter()
-  }
+  // beforeMount() {
+  //   this.decideIfNewOrEditTicketType()
+  // }
 }
 </script>
