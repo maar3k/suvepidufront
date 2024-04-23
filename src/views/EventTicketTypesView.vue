@@ -24,12 +24,12 @@
           </tr>
           </tbody>
         </table>
-        <font-awesome-icon @click="openTicketTypesModal" :icon="['fas', 'plus']"/>
+        <font-awesome-icon @click="openTicketTypesModal(ticketTypeId)" :icon="['fas', 'plus']"/>
       </div>
     </div>
 
     <div>
-      <TicketTypesModal ref="ticketTypesModalRef"/>
+      <TicketTypesModal ref="ticketTypesModalRef" :ticket-type-id="ticketTypeId"/>
     </div>
 
   </div>
@@ -43,10 +43,12 @@ import router from "@/router";
 export default {
   name: "EventTicketTypesView",
   components: {TicketTypesModal},
+  props: {
+    ticketTypeId: Number
+  },
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
-
       ticketTypes: [
         {
           ticketTypeName: '',
@@ -58,12 +60,13 @@ export default {
     }
   },
   methods: {
-    openTicketTypesModal() {
+    openTicketTypesModal(ticketTypeId) {
+      this.ticketTypeId = ticketTypeId
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
-    navigateToEditTicketType(ticketTypeId) {
-      this.openTicketTypesModal(ticketTypeId)
+    navigateToEditTicketType() {
+      this.openTicketTypesModal()
     },
 
     sendGetTicketTypesRequest() {

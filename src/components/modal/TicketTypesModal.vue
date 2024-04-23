@@ -42,10 +42,12 @@ import {useRoute} from "vue-router";
 export default {
   name: "TicketTypesModal",
   components: {Modal},
+  props: {
+    ticketTypeId: Number
+  },
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
-      ticketTypeId: useRoute().query.ticketTypeId,
 
       ticketTypeInfo: {
         ticketTypeName: '',
