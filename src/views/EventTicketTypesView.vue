@@ -10,12 +10,17 @@
           <tr>
             <th scope="col">Piletitüüp</th>
             <th scope="col">Hind</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="ticketType in ticketTypes" :key="ticketType.ticketTypeId">
             <td>{{ ticketType.ticketTypeName }}</td>
             <td>{{ ticketType.ticketTypePrice }}</td>
+            <td>
+              <font-awesome-icon @click="navigateToEditTicketType(ticketType.ticketTypeId)" class="cursor-pointer"
+                                 :icon="['far', 'pen-to-square']"/>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -57,8 +62,11 @@ export default {
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
+    navigateToEditTicketType(ticketTypeId) {
+      this.openTicketTypesModal(ticketTypeId)
+    },
+
     sendGetTicketTypesRequest() {
-      console.log(this.mainEventId)
       this.$http.get("/ticket-types", {
             params: {
               mainEventId: this.mainEventId

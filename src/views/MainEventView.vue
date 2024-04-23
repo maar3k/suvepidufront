@@ -80,8 +80,8 @@ export default {
             }
           }
       ).then(response => {
-        const id = response.data
-        router.push({name: 'featureCategoryRoute', query: {mainEventId: id}})
+        const mainEventId = response.data
+        router.push({name: 'featureCategoryRoute', query: {mainEventId: mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -105,7 +105,6 @@ export default {
     },
 
     getMainEventIdFromUrlQueryParameter() {
-      console.log(this.mainEventId)
       if (this.mainEventId !== undefined) {
         const mainEventId = Number(this.mainEventId);
         this.sendGetMainEventRequest(mainEventId)

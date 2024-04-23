@@ -25,7 +25,7 @@
     </template>
 
     <template #buttons>
-      <button @click="addNewTicketType" type="submit" class="btn btn-primary">Lisa</button>
+      <button @click="addOrUpdateTicketType" type="submit" class="btn btn-primary">OK</button>
       <button @click="closeTicketTypesModal" type="submit"
               class="button-cancel btn btn-primary text-center text-nowrap">Loobu
       </button>
@@ -45,14 +45,30 @@ export default {
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
-      ticketTypeInfo:
-        {
-          ticketTypeName: '',
-          ticketTypePrice: 0
-        }
+      ticketTypeId: useRoute().query.ticketTypeId,
+
+      ticketTypeInfo: {
+        ticketTypeName: '',
+        ticketTypePrice: 0,
+      },
+
+      ticketTypeInfoExtended: {
+        ticketTypeName: '',
+        ticketTypePrice: 0,
+        ticketTypeId: 0,
+        mainEventId: 0
+      }
     }
   },
   methods: {
+    addOrUpdateTicketType() {
+      if (this.ticketTypeId !== 0) {
+        this.editTicketType()
+      } else {
+        this.addNewTicketType()
+      }
+    },
+
     addNewTicketType() {
       this.$http.post("ticket-type", this.ticketTypeInfo, {
             params: {
@@ -68,10 +84,43 @@ export default {
       })
     },
 
+    editTicketType() {
+      this.$http.put("/ticket-type", this.ticketTypeInfoExtended
+      ).then(() => {
+        router.push({name: 'eventTicketTypesRoute'})
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    getTicketTypeIdFromUrlQueryParameter() {
+      console.log(this.ticketTypeId)
+      if (this.ticketTypeId !== undefined) {
+        const ticketTypeId = Number(this.ticketTypeId);
+        this.sendGetTicketTypeRequest(ticketTypeId)
+      }
+    },
+
+    sendGetTicketTypeRequest(ticketTypeId) {
+      this.$http.get("/ticket-type", {
+            params: {
+              ticketTypeId: ticketTypeId
+            }
+          }
+      ).then(response => {
+        this.ticketTypeInfoExtended = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
     closeTicketTypesModal() {
       this.$refs.modalRef.closeModal()
     },
 
+  },
+  beforeMount() {
+    this.getTicketTypeIdFromUrlQueryParameter()
   }
 }
 </script>
