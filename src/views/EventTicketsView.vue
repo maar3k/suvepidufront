@@ -32,6 +32,16 @@ import TicketModal from "@/components/modal/TicketModal.vue";
 export default {
   name: "EventTicketTypesView",
   components: {TicketModal},
+
+  data() {
+    return {
+      eventDetailId: 0,
+      ticketTypeId: 0,
+      total: 0,
+      available: 0,
+      status: ''
+    }
+  },
   methods: {
     navigateToFeaturesCategories() {
       router.push({name: 'featureCategoryRoute'})
