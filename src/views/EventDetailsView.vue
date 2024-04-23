@@ -12,6 +12,7 @@
             <th scope="col">Kuupäev</th>
             <th scope="col">Algus</th>
             <th scope="col">Lõpp</th>
+            <th scope="col">Maakond</th>
             <th scope="col">Asukoht</th>
             <th scope="col">Pikkuskraad</th>
             <th scope="col">Laiuskraad</th>
@@ -23,6 +24,7 @@
             <td>21.07.2024</td>
             <td>12:00</td>
             <td>19:00</td>
+            <td>maakond</td>
             <td>Valga</td>
             <td>XXXXX</td>
             <td>YYYYY</td>
@@ -34,6 +36,7 @@
             <td>22.07.2024</td>
             <td>12:00</td>
             <td>19:00</td>
+            <td>maakond</td>
             <td>Paide</td>
             <td>XXXXX</td>
             <td>YYYYY</td>
