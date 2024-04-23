@@ -1,7 +1,8 @@
 <template>
-  <EventDetailsModal ref="eventDetailsModalRef"/>
+  <EventDetailModal ref="eventDetailsModalRef"/>
   <div class="container text-center">
-    <h1>Suvegrill 2024</h1>
+    <h1>{{ mainEventId }}</h1>
+<!--    todo: kuidas saada title mainevent tabelist kätte?-->
     <!--    TODO: event name to be added via backend-->
     <div class="row">
       <div class="col-8">
@@ -32,18 +33,6 @@
               <button @click="navigateToEventTickets" type="button" class="btn btn-primary">Piletid</button>
             </td>
           </tr>
-          <tr>
-            <td>22.07.2024</td>
-            <td>12:00</td>
-            <td>19:00</td>
-            <td>maakond</td>
-            <td>Paide</td>
-            <td>XXXXX</td>
-            <td>YYYYY</td>
-            <td>
-              <button @click="navigateToEventTickets" type="button" class="btn btn-primary">Piletid</button>
-            </td>
-          </tr>
           </tbody>
 
         </table>
@@ -59,11 +48,30 @@
 
 <script>
 import router from "@/router";
-import EventDetailsModal from "@/components/modal/EventDetailsModal.vue";
+import EventDetailModal from "@/components/modal/EventDetailModal.vue";
+import {useRoute} from "vue-router";
 
 export default {
-  name: "EventDetailsView",
-  components: {EventDetailsModal},
+  name: "EventDetailView",
+  components: {EventDetailModal},
+  data() {
+    return {
+      mainEventId: useRoute().query.mainEventId,
+
+      eventDetailInfo: {
+
+        date: '',
+        startTime: '',
+        endTime: '',
+        address: '',
+        longitude: 0,
+        latitude: 0,
+      }
+
+    }
+  },
+
+
   methods: {
     navigateToEventTickets() {
       router.push({name: 'eventTicketsRoute'})
