@@ -5,28 +5,31 @@
     </template>
     <template #body>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Kuupäev</label>
+        <label class="form-label">Kuupäev</label>
         <input type="date" class="form-control">
-        <div id="emailHelp" class="form-text"></div>
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Algus</label>
+        <label class="form-label">Algus</label>
         <input type="time" class="form-control">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Lõpp</label>
+        <label class="form-label">Lõpp</label>
         <input type="time" class="form-control">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Asukoht</label>
+        <label class="form-label">Maakond</label>
+        <CountyDropdown v-model="selectedCountyId" @change="getAndSetSelectedCountyId"/>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Asukoht</label>
         <input type="text" class="form-control">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Pikkuskraad</label>
+        <label class="form-label">Pikkuskraad</label>
         <input type="text" class="form-control">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Laiuskraad</label>
+        <label class="form-label">Laiuskraad</label>
         <input type="text" class="form-control">
       </div>
     </template>
@@ -40,17 +43,19 @@
 <script>
 
 import Modal from "@/components/modal/Modal.vue";
-import router from "@/router";
+import CountyDropdown from "@/components/event/CountyDropdown.vue";
 
 export default {
   name: "EventDetailsModal",
-  components: {Modal},
+  components: {Modal, CountyDropdown},
   data() {
     return {
+      selectedCountyId: 0,
       eventDetailsInfo: {
         date: '',
         start_time: '',
         end_time: '',
+        countyId: 0,
         address: '',
         longitude: '',
         latitude: '',
@@ -60,15 +65,20 @@ export default {
 
   },
   methods: {
-    addEventDetails() {
-      this.$http.post("/account/user", this.eventDetailsInfo
-      ).then(() => {
-        this.$refs.modalRef.closeModal()
-        router.push({name: 'eventDetailsRoute'})
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
-      })
-    },
+    //   addEventDetails() {
+    //     this.$http.post("/account/user", this.eventDetailsInfo
+    //     ).then(() => {
+    //       this.$refs.modalRef.closeModal()
+    //       router.push({name: 'eventDetailsRoute'})
+    //     }).catch(() => {
+    //       router.push({name: 'errorRoute'})
+    //     })
+    //   },
+    // },
+
+    getAndSetSelectedCountyId() {
+      this.eventDetailsInfo.countyId = this.selectedCountyId
+    }
   }
 }
 </script>
