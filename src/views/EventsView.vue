@@ -37,7 +37,7 @@
               </button>
             </td>
             <td>
-              <button @click="navigateToEventDetails" type="button" class="btn btn-primary">Toimumiskohad</button>
+              <button @click="navigateToEventDetail(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">Toimumiskohad</button>
             </td>
             <td>
               <button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletitüübid</button>
@@ -93,8 +93,8 @@ export default {
       router.push({name: 'featureCategoryRoute'})
     },
 
-    navigateToEventDetails() {
-      router.push({name: 'eventDetailsRoute'})
+    navigateToEventDetail(mainEventId) {
+      router.push({name: 'eventDetailRoute', query: {mainEventId: mainEventId}})
     },
 
     navigateToAddEvent() {
