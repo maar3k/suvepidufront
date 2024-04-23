@@ -89,8 +89,8 @@ export default {
       this.$http.put("/event/main", this.mainEventInfo
       ).then(() => {
         router.push({name: 'eventsRoute'})
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
 
@@ -119,8 +119,8 @@ export default {
           }
       ).then(response => {
         this.mainEventInfo = response.data
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
 

@@ -25,7 +25,7 @@
     </template>
 
     <template #buttons>
-      <button @click="addNewTicketTypes" type="submit" class="btn btn-primary">Lisa</button>
+      <button @click="addNewTicketType" type="submit" class="btn btn-primary">Lisa</button>
     </template>
 
   </Modal>
@@ -44,15 +44,15 @@ export default {
       mainEventId: Number(useRoute().query.mainEventId),
       ticketTypeInfo:
         {
-          mainEventId: 0,
           ticketTypeName: '',
           ticketTypePrice: 0
         }
     }
   },
   methods: {
-    addNewTicketTypes() {
-      this.$http.post("/event/ticket-types", this.ticketTypeInfo, {
+    addNewTicketType() {
+      alert(this.mainEventId)
+      this.$http.post("ticket-type", this.ticketTypeInfo, {
             params: {
               mainEventId: this.mainEventId
             }

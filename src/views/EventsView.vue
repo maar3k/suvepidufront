@@ -40,7 +40,7 @@
               <button @click="navigateToEventDetails" type="button" class="btn btn-primary">Toimumiskohad</button>
             </td>
             <td>
-              <button @click="navigateToTicketTypes" type="button" class="btn btn-primary">Piletitüübid</button>
+              <button @click="navigateToTicketTypes(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">Piletitüübid</button>
             </td>
             <td>
               <font-awesome-icon @click="navigateToEditEvent(mainEventInfo.mainEventId)" class="cursor-pointer"
@@ -105,9 +105,8 @@ export default {
       router.push({name: 'mainEventRoute', query: {mainEventId: mainEventId}})
     },
 
-    navigateToTicketTypes() {
-      // siia peab kaasa votma selected mainEventId, selle eelduseks et pärime andmed backendist
-      router.push({name: 'eventTicketTypesRoute'})
+    navigateToTicketTypes(mainEventId) {
+      router.push({name: 'eventTicketTypesRoute', query: {mainEventId: mainEventId}})
     },
 
     sendGetMainEventsRequest() {
