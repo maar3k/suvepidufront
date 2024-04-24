@@ -1,7 +1,7 @@
 <template>
   <div class="container text-center">
     <!--    todo: andmebaasist title-->
-    <h1>Suvegrill 2024</h1>
+    <h1>{{this.mainEventId}}</h1>
     <div class="row">
       <div class="col-8">
 
@@ -64,7 +64,7 @@ export default {
 
     openTicketTypesModalEdit(ticketTypeId) {
       this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(ticketTypeId);
-      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis. Lapsesse läheb props.
+      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 

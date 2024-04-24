@@ -12,7 +12,7 @@
     |
     <router-link to="/feature-category">KATEGOORIAD</router-link>
     |
-    <router-link to="/events">Minu sündmused</router-link>
+    <router-link to="/events">MINU SÜNDMUSED</router-link>
     |
     <router-link to="/event-details">Suvegrill</router-link>
     |

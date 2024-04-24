@@ -40,7 +40,6 @@ export default {
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
-
       ticketTypeInfoExtended: {
         ticketTypeName: '',
         ticketTypePrice: 0,
@@ -102,15 +101,15 @@ export default {
       })
     },
 
-    closeTicketTypesModal() {
-      this.$refs.modalRef.closeModal()
-    },
-
     decideIfNewOrEditTicketType(ticketTypeId) {
       if (ticketTypeId !== 0) {
         this.sendGetTicketTypeRequest(ticketTypeId)
       }
     },
-  },
+
+    closeTicketTypesModal() {
+      this.$refs.modalRef.closeModal()
+    },
+  }
 }
 </script>

@@ -90,7 +90,7 @@ export default {
           }
       ).then(response => {
         const mainEventId = response.data
-        router.push({name: 'featureCategoryRoute', query: {mainEventId: mainEventId}})
+        router.push({name: 'eventsRoute', query: {mainEventId: mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

@@ -89,8 +89,7 @@ export default {
   },
   methods: {
     navigateToFeaturesCategories(mainEventId) {
-      alert("todo navigeeeri õigele lehele mainEventId kaasa " + mainEventId)
-      router.push({name: 'featureCategoryRoute'})
+      router.push({name: 'featureCategoryRoute', query: {mainEventId: mainEventId}})
     },
 
     navigateToEventDetail(mainEventId) {
