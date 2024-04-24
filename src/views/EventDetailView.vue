@@ -2,7 +2,7 @@
   <EventDetailModal ref="eventDetailsModalRef"/>
   <div class="container text-center">
     <h1>{{ mainEventId }}</h1>
-<!--    todo: kuidas saada title mainevent tabelist kätte?-->
+    <!--    todo: kuidas saada title mainevent tabelist kätte?-->
     <!--    TODO: event name to be added via backend-->
     <div class="row">
       <div class="col-8">
@@ -22,13 +22,13 @@
 
           <tbody>
           <tr>
-            <td>21.07.2024</td>
-            <td>12:00</td>
-            <td>19:00</td>
-            <td>maakond</td>
-            <td>Valga</td>
-            <td>XXXXX</td>
-            <td>YYYYY</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
               <button @click="navigateToEventTickets" type="button" class="btn btn-primary">Piletid</button>
             </td>
@@ -60,6 +60,8 @@ export default {
 
       eventDetailInfo: {
 
+        mainEventId: 0,
+        countyId: 0,
         date: '',
         startTime: '',
         endTime: '',
@@ -71,8 +73,16 @@ export default {
     }
   },
 
-
   methods: {
+    sendGetEventDetailRequest() {
+      this.$http.get("/event/details/"
+      ).then(response => {
+        this.eventDetailInfo = response.data
+      }).catch(error => {
+        this.errorResponse = error.response.data
+      })
+    },
+
     navigateToEventTickets() {
       router.push({name: 'eventTicketsRoute'})
     },
@@ -81,13 +91,11 @@ export default {
       this.$refs.eventDetailsModalRef.$refs.modalRef.openModal()
     }
 
-  }
+  },
 
+  beforeMount() {
+    this.sendGetEventDetailRequest()
+  }
 }
 
 </script>
-
-
-<style scoped>
-
-</style>
