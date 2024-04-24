@@ -10,13 +10,21 @@
             <th scope="col">Piletitüüp</th>
             <th scope="col">Kogu piletite arv</th>
             <th scope="col">Saadaval</th>
+            <th scope="col">Staatus</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Penskarid</td>
-            <td>100</td>
-            <td>100</td>
+          <tr v-for="ticketInfo in tickets" :key="ticketInfo.eventTicketId">
+            <td>{{ ticketInfo.ticketTypeName }}</td>
+            <td>{{ ticketInfo.total }}</td>
+            <td>{{ ticketInfo.available }}</td>
+            <td>{{ ticketInfo.status }}</td>
+            <td><font-awesome-icon @click="navigateToEditEvent(mainEventInfo.mainEventId)" class="cursor-pointer"
+                                   :icon="['far', 'pen-to-square']"/></td>
+            <td><font-awesome-icon @click="openDeleteMainEventModal(mainEventInfo.mainEventId)" class="cursor-pointer"
+                                   :icon="['far', 'trash-can']"/></td>
           </tr>
           </tbody>
         </table>
@@ -35,11 +43,15 @@ export default {
 
   data() {
     return {
-      eventDetailId: 0,
-      ticketTypeId: 0,
-      total: 0,
-      available: 0,
-      status: ''
+      eventDetailId: 1,
+      tickets: [
+        {
+          ticketTypeName: '',
+          total: 0,
+          available: 0,
+          status: ''
+        }
+      ]
     }
   },
   methods: {
@@ -49,11 +61,21 @@ export default {
     openTicketModal() {
       this.$refs.ticketModalRef.$refs.modalRef.openModal()
     },
+    sendGetEventTicketsRequest() {
+      this.$http.get("/event/tickets", {
+        params: {
+          eventDetailId: this.eventDetailId
+        }
+      }).then(response => {
+        this.tickets = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+  },
+  mounted() {
+    this.sendGetEventTicketsRequest()
   }
 }
 </script>
-
-
-<style scoped>
-
-</style>

@@ -10,8 +10,8 @@
             <label for="exampleInputPassword1" class="form-label">Vali piletitüüp</label>
             <select class="form-select" aria-label="Default select example">
               <option selected disabled>Piletitüübid</option>
-              <option value="1">Penskarid</option>
-              <option value="2">Taiskasvanud</option>
+              <option value="1">Seeniorid</option>
+              <option value="2">Täiskasvanud</option>
               <option value="3">Lapsed</option>
             </select>
           </div>
@@ -27,12 +27,40 @@
 </template>
 <script>
 import Modal from "@/components/modal/Modal.vue";
+import router from "@/router";
 
 export default {
   name: "TicketModal",
   components: {Modal},
 
+  data() {
+    return {
+      eventDetailId: 1,
+      ticketTypeId: 0,
+      total: 0
+    }
+  },
   methods: {
+
+    sendPostAddEventTicketRequest() {
+      const eventTicketInfo = {
+        eventDetailId: this.eventDetailId,
+        ticketTypeId: this.ticketTypeId,
+        total: this.total
+      }
+      this.$http.post("/event/ticket", eventTicketInfo, {
+            params: {
+              someRequestParam1: this.someDataBlockVariable1,
+              someRequestParam2: this.someDataBlockVariable2
+            }
+          }
+      ).then(response => {
+        this.closeTicketModal()
+        const responseBody = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
 
     closeTicketModal() {
       this.$refs.ticketModalRef.$refs.modalRef.closeModal()
