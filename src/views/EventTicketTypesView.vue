@@ -1,6 +1,6 @@
 <template>
   <div class="container text-center">
-    <!--    andmebaasist title-->
+    <!--    todo: andmebaasist title-->
     <h1>Suvegrill 2024</h1>
     <div class="row">
       <div class="col-8">
@@ -24,13 +24,12 @@
           </tr>
           </tbody>
         </table>
-        <font-awesome-icon @click="openTicketTypesModalNew()" :icon="['fas', 'plus']"/>
+        <font-awesome-icon @click="openTicketTypesModalNew" :icon="['fas', 'plus']"/>
       </div>
     </div>
 
     <div>
-      <TicketTypesModal ref="ticketTypesModalRef" />
-<!--      siin modali tagi sees kinni püüda modalist saadetud emit ja suunata uude meetodisse kus teha page refresh-->
+      <TicketTypesModal ref="ticketTypesModalRef" @event-ticket-type-edited-or-added="eventTicketTypeEditedOrAdded"/>
     </div>
 
   </div>
@@ -44,10 +43,6 @@ import router from "@/router";
 export default {
   name: "EventTicketTypesView",
   components: {TicketTypesModal},
-  // props: {
-  //   ticketTypeId: Number
-  // props läheb lapse sisse ehk antud juhul TicketTypesModal
-  // },
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
@@ -69,7 +64,7 @@ export default {
 
     openTicketTypesModalEdit(ticketTypeId) {
       this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(ticketTypeId);
-      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis
+      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis. Lapsesse läheb props.
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
@@ -85,12 +80,15 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
+
+    eventTicketTypeEditedOrAdded() {
+      this.sendGetTicketTypesRequest()
+    },
   },
 
   beforeMount() {
     this.sendGetTicketTypesRequest()
   }
 }
-
 
 </script>

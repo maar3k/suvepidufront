@@ -61,13 +61,22 @@ export default {
   methods: {
     addOrUpdateMainEvent() {
       if (this.mainEventInfo.mainEventId !== 0) {
-        this.editMainEvent()
+        this.sendPutEditMainEventRequest()
       } else {
-        this.addNewMainEvent()
+        this.sendPostAddMainEventRequest()
       }
     },
 
-    addNewMainEvent() {
+    sendPutEditMainEventRequest() {
+      this.$http.put("/event/main", this.mainEventInfo
+      ).then(() => {
+        router.push({name: 'eventsRoute'})
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    sendPostAddMainEventRequest() {
       const newEventInfoDto = {
         title: this.mainEventInfo.title,
         description: this.mainEventInfo.description,
@@ -87,10 +96,14 @@ export default {
       })
     },
 
-    editMainEvent() {
-      this.$http.put("/event/main", this.mainEventInfo
-      ).then(() => {
-        router.push({name: 'eventsRoute'})
+    sendGetMainEventRequest(mainEventId) {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventInfo = response.data
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -111,20 +124,6 @@ export default {
         this.sendGetMainEventRequest(mainEventId)
       }
     },
-
-    sendGetMainEventRequest(mainEventId) {
-      this.$http.get("/event/main", {
-            params: {
-              mainEventId: mainEventId
-            }
-          }
-      ).then(response => {
-        this.mainEventInfo = response.data
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
-      })
-    },
-
   },
   beforeMount() {
     this.getMainEventIdFromUrlQueryParameter()

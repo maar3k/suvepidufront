@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeleteMainEventModal @event-deleted="eventDeleted" ref="deleteMainEventModal"/>
+    <DeleteMainEventModal @event-deleted="eventEventDeleted" ref="deleteMainEventModal"/>
   </div>
   <div class="container text-center">
     <h1>Minu sündmused</h1>
@@ -132,7 +132,7 @@ export default {
       this.sendGetMainEventsRequest()
     },
 
-    eventDeleted() {
+    eventEventDeleted() {
       this.sendGetMainEventsRequest()
     }
 
