@@ -1,12 +1,15 @@
 <template>
   <Modal ref="modalRef">
+    <template #title>
+      Lisa pilet
+    </template>
     <template #body>
       <div class="row">
         <div class="container text-center">
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Kogu piletite arv</label>
+            <label for="exampleInputPassword1" class="form-label">Vali piletitüüp</label>
             <select class="form-select" aria-label="Default select example">
-              <option selected>Piletituubid</option>
+              <option selected disabled>Piletitüübid</option>
               <option value="1">Penskarid</option>
               <option value="2">Taiskasvanud</option>
               <option value="3">Lapsed</option>
@@ -27,6 +30,13 @@ import Modal from "@/components/modal/Modal.vue";
 
 export default {
   name: "TicketModal",
-  components: {Modal}
+  components: {Modal},
+
+  methods: {
+
+    closeTicketModal() {
+      this.$refs.ticketModalRef.$refs.modalRef.closeModal()
+    },
+  }
 }
 </script>
