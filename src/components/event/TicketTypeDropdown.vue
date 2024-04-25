@@ -3,7 +3,7 @@
     <option selected disabled value="0">Piletitüübid</option>
     <option v-for="type in types" :value="type.ticketTypeId" :key="type.ticketTypeId">
       {{ type.ticketTypeName }}
-<!--      <p>test</p>-->
+      <!--<p>test</p>-->
     </option>
   </select>
 </template>
