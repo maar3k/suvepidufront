@@ -8,11 +8,7 @@
     |
     <router-link to="/checkout">OSTUKORV</router-link>
     |
-    <router-link to="/main-event">LISA UUS SÜNDMUS</router-link>
-    |
     <router-link to="/events">MINU SÜNDMUSED</router-link>
-    |
-    <router-link to="/event-details">Suvegrill</router-link>
     |
     <a href="#" @click="openLoginModal">LOGI SISSE</a>
   </nav>
