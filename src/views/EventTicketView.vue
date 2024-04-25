@@ -2,7 +2,7 @@
   <TicketModal ref="ticketModalRef"/>
   <div class="container text-center">
     <h1>Suvegrill 2024 - Valga</h1>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-8">
         <table class="table">
           <thead>
@@ -38,7 +38,7 @@ import router from "@/router";
 import TicketModal from "@/components/modal/TicketModal.vue";
 
 export default {
-  name: "EventTicketTypesView",
+  name: "EventTicketView",
   components: {TicketModal},
 
   data() {

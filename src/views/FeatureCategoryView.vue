@@ -1,8 +1,7 @@
 <template>
   <div class="container text-center">
-    <!--    todo: andmebaasist title-->
-    <h1>{{ this.mainEventId }}</h1>
-    <div class="row">
+    <h1>{{ "Nimi: " + mainEventName }}</h1>
+    <div class="row justify-content-center">
       <div class="col-8">
 
         <table class="table">
@@ -66,6 +65,7 @@ export default {
   data() {
     return {
       mainEventId: useRoute().query.mainEventId,
+      mainEventName: '',
 
       selectedFeatures: [
         {
@@ -136,12 +136,27 @@ export default {
       this.sendGetSelectedFeaturesRequest()
     },
 
+    sendGetMainEventNameRequest() {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventName = response.data.title
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+
 
   },
 
   beforeMount() {
     this.sendGetSelectedFeaturesRequest()
     this.sendGetSelectedCategoriesRequest()
+    this.sendGetMainEventNameRequest()
   }
 }
 

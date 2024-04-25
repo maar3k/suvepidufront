@@ -3,13 +3,11 @@
     <DeleteMainEventModal @event-deleted="eventEventDeleted" ref="deleteMainEventModal"/>
   </div>
   <div class="container text-center">
-    <h1>Minu sündmused</h1>
-
-    <div class="input-group mb-3">
-      <BusinessDropdown v-model="selectedBusinessId" @event-selected-business-change="setSelectedBusinessId"/>
-    </div>
-
-    <div class="row">
+    <h1>Minu sündmused - lisa ja muuda</h1>
+    <div class="row justify-content-center">
+      <div class="input-group mb-3">
+        <BusinessDropdown v-model="selectedBusinessId" @event-selected-business-change="setSelectedBusinessId"/>
+      </div>
       <div class="col-12">
         <table class="table">
           <thead>
@@ -17,11 +15,11 @@
             <th scope="col">Nimi</th>
             <th scope="col">Kirjeldus</th>
             <th scope="col">Pilt</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">Lisa:</th>
+            <th scope="col">Lisa:</th>
+            <th scope="col">Lisa:</th>
+            <th scope="col">Muuda</th>
+            <th scope="col">Kustuta</th>
           </tr>
           </thead>
 
@@ -39,7 +37,9 @@
               </button>
             </td>
             <td>
-              <button @click="navigateToEventDetail(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">Toimumiskohad</button>
+              <button @click="navigateToEventDetail(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">
+                Toimumiskohad
+              </button>
             </td>
             <td>
               <button @click="navigateToTicketTypes(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">

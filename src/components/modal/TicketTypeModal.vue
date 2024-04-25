@@ -21,8 +21,8 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="addOrUpdateTicketType" type="submit" class="btn btn-primary">OK</button>
-      <button @click="closeTicketTypesModal" type="submit"
+      <button @click="addOrUpdateTicketType" type="submit" class="btn button-success btn-primary">OK</button>
+      <button @click="closeTicketTypeModal" type="submit"
               class="button-cancel btn btn-primary text-center text-nowrap">Loobu
       </button>
     </template>
@@ -34,7 +34,7 @@ import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
 
 export default {
-  name: "TicketTypesModal",
+  name: "TicketTypeModal",
   components: {Modal},
   data() {
     return {
@@ -59,7 +59,7 @@ export default {
     sendPutEditTicketTypeRequest() {
       this.$http.put("/ticket-type", this.ticketTypeInfoExtended
       ).then(() => {
-        this.closeTicketTypesModal()
+        this.closeTicketTypeModal()
         router.push({name: 'eventTicketTypeRoute'})
         this.$emit('event-ticket-type-edited-or-added')
       }).catch(() => {
@@ -79,7 +79,7 @@ export default {
             }
           }
       ).then(() => {
-        this.closeTicketTypesModal()
+        this.closeTicketTypeModal()
         router.push({name: 'eventTicketTypeRoute'})
         this.$emit('event-ticket-type-edited-or-added')
       }).catch(() => {
@@ -107,7 +107,7 @@ export default {
       }
     },
 
-    closeTicketTypesModal() {
+    closeTicketTypeModal() {
       this.$refs.modalRef.closeModal()
     },
   }

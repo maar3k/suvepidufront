@@ -4,8 +4,8 @@
     <h2>{{ "Nimi: " + mainEventName }}</h2>
     <!--    todo: kuidas saada title mainevent tabelist kätte?-->
     <!--    TODO: event name to be added via backend-->
-    <div class="row">
-      <div class="col-8">
+    <div class="row justify-content-center">
+      <div class="col-10">
 
         <table class="table">
           <thead>
@@ -118,7 +118,7 @@ export default {
 
 
     navigateToEventTickets() {
-      router.push({name: 'eventTicketsRoute'})
+      router.push({name: 'eventTicketRoute'})
     },
 
     openEventDetailsModal() {

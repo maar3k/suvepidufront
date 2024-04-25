@@ -1,8 +1,7 @@
 <template>
   <div class="container text-center">
-    <!--    todo: andmebaasist title-->
-    <h1>{{this.mainEventId}}</h1>
-    <div class="row">
+    <h1>{{ "Nimi: " + mainEventName }}</h1>
+    <div class="row justify-content-center">
       <div class="col-8">
 
         <table class="table">
@@ -10,7 +9,7 @@
           <tr>
             <th scope="col">Piletitüüp</th>
             <th scope="col">Hind</th>
-            <th scope="col"></th>
+            <th scope="col">Muuda</th>
           </tr>
           </thead>
           <tbody>
@@ -29,23 +28,25 @@
     </div>
 
     <div>
-      <TicketTypesModal ref="ticketTypesModalRef" @event-ticket-type-edited-or-added="eventTicketTypeEditedOrAdded"/>
+      <TicketTypeModal ref="ticketTypesModalRef" @event-ticket-type-edited-or-added="eventTicketTypeEditedOrAdded"/>
     </div>
 
   </div>
 </template>
 
 <script>
-import TicketTypesModal from "@/components/modal/TicketTypesModal.vue";
 import {useRoute} from "vue-router";
 import router from "@/router";
+import TicketTypeModal from "@/components/modal/TicketTypeModal.vue";
 
 export default {
   name: "EventTicketTypeView",
-  components: {TicketTypesModal},
+  components: {TicketTypeModal},
   data() {
     return {
       mainEventId: Number(useRoute().query.mainEventId),
+      mainEventName: '',
+
       ticketTypes: [
         {
           ticketTypeName: '',
@@ -84,10 +85,24 @@ export default {
     eventTicketTypeEditedOrAdded() {
       this.sendGetTicketTypesRequest()
     },
+
+    sendGetMainEventNameRequest() {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventName = response.data.title
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
   },
 
   beforeMount() {
     this.sendGetTicketTypesRequest()
+    this.sendGetMainEventNameRequest()
   }
 }
 

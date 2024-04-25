@@ -7,8 +7,8 @@ import MainEventView from "@/views/MainEventView.vue";
 import FeatureCategoryView from "@/views/FeatureCategoryView.vue";
 import EventDetailView from "@/views/EventDetailView.vue";
 import EventsView from "@/views/EventsView.vue";
-import EventTicketsView from "@/views/EventTicketsView.vue";
 import EventTicketTypeView from "@/views/EventTicketTypeView.vue";
+import EventTicketView from "@/views/EventTicketView.vue";
 
 const routes = [
     {
@@ -58,8 +58,8 @@ const routes = [
     },
     {
         path: '/event-tickets',
-        name: 'eventTicketsRoute',
-        component: EventTicketsView
+        name: 'eventTicketRoute',
+        component: EventTicketView
     },
 
 ]
