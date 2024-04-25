@@ -118,7 +118,6 @@ export default {
     },
 
     getMainEventIdFromUrlQueryParameter() {
-      // siin ei saa ainult urlist id-d vaid siin otsustame, kas on edit või new
       if (this.mainEventId !== undefined) {
         const mainEventId = Number(this.mainEventId);
         this.sendGetMainEventRequest(mainEventId)

@@ -105,7 +105,7 @@ export default {
     },
 
     navigateToTicketTypes(mainEventId) {
-      router.push({name: 'eventTicketTypesRoute', query: {mainEventId: mainEventId}})
+      router.push({name: 'eventTicketTypeRoute', query: {mainEventId: mainEventId}})
     },
 
     sendGetMainEventsRequest() {

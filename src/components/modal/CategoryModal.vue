@@ -52,7 +52,8 @@ export default {
         {
           categoryId: 0,
           mainEventId: 0,
-          categoryName: ''
+          categoryName: '',
+          isAvailable: false
         }
       ]
     }
@@ -95,9 +96,23 @@ export default {
       })
     },
 
+    updateEventCategories() {
+      const incomingEventCategories = this.selectedCategories
+      for (const incomingEventCategory of incomingEventCategories) {
+        for (const category of this.selectedCategories) {
+          if (incomingEventCategory.categoryId === category.categoryId) {
+            category.isAvailable = true
+          }
+        }
+      }
+    },
+
     decideIfNewOrEditCategories(mainEventId) {
       if (mainEventId !== 0) {
         this.sendGetSelectedCategoriesRequest(mainEventId)
+        this.updateEventCategories(mainEventId)
+      } else {
+        this.sendGetCategoriesRequest()
       }
     },
 
@@ -107,7 +122,8 @@ export default {
 
   },
   beforeMount() {
-    this.sendGetCategoriesRequest()
+    console.log(this.mainEventId)
+    this.decideIfNewOrEditCategories()
   }
 }
 </script>

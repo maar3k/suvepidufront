@@ -58,13 +58,13 @@ export default {
   },
   methods: {
     openTicketTypesModalNew() {
-      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(0);
+      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(0, this.mainEventId);
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 
     openTicketTypesModalEdit(ticketTypeId) {
-      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(ticketTypeId);
-      // siin panen ticketTypeId kaasa, et see modalis kätte saada propsis
+      this.$refs.ticketTypesModalRef.decideIfNewOrEditTicketType(ticketTypeId, this.mainEventId);
+      // siin panen ticketTypeId kaasa
       this.$refs.ticketTypesModalRef.$refs.modalRef.openModal()
     },
 

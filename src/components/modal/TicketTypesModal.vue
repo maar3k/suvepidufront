@@ -39,7 +39,7 @@ export default {
   components: {Modal},
   data() {
     return {
-      mainEventId: Number(useRoute().query.mainEventId),
+      mainEventId: 0,
       ticketTypeInfoExtended: {
         ticketTypeName: '',
         ticketTypePrice: 0,
@@ -61,7 +61,7 @@ export default {
       this.$http.put("/ticket-type", this.ticketTypeInfoExtended
       ).then(() => {
         this.closeTicketTypesModal()
-        router.push({name: 'eventTicketTypesRoute'})
+        router.push({name: 'eventTicketTypeRoute'})
         this.$emit('event-ticket-type-edited-or-added')
       }).catch(() => {
         router.push({name: 'errorRoute'})
@@ -81,7 +81,7 @@ export default {
           }
       ).then(() => {
         this.closeTicketTypesModal()
-        router.push({name: 'eventTicketTypesRoute'})
+        router.push({name: 'eventTicketTypeRoute'})
         this.$emit('event-ticket-type-edited-or-added')
       }).catch(() => {
         router.push({name: 'errorRoute'})
@@ -101,7 +101,8 @@ export default {
       })
     },
 
-    decideIfNewOrEditTicketType(ticketTypeId) {
+    decideIfNewOrEditTicketType(ticketTypeId, mainEventId) {
+      this.mainEventId = mainEventId;
       if (ticketTypeId !== 0) {
         this.sendGetTicketTypeRequest(ticketTypeId)
       }

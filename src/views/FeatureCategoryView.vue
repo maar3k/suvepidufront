@@ -24,21 +24,21 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <font-awesome-icon @click="openFeatureModalNew(mainEventId)" :icon="['fas', 'plus']"/>
+            <td v-if="this.mainEventId > 0">
+              <font-awesome-icon @click="openFeatureModal(mainEventId)" class="cursor-pointer"
+                                 :icon="['far', 'pen-to-square']"/>
             </td>
-            <div>
-              <font-awesome-icon @click="openCategoryModalNew(mainEventId)" :icon="['fas', 'plus']"/>
-            </div>
+            <td v-if="this.mainEventId > 0">
+              <font-awesome-icon @click="openCategoryModal(mainEventId)" class="cursor-pointer"
+                                 :icon="['far', 'pen-to-square']"/>
+            </td>
           </tr>
           <tr>
-            <td>
-              <font-awesome-icon @click="openFeatureModalEdit(mainEventId)" class="cursor-pointer"
-                                 :icon="['far', 'pen-to-square']"/>
+            <td v-if="this.mainEventId <= 0">
+              <font-awesome-icon @click="openFeatureModal(mainEventId)" :icon="['fas', 'plus']"/>
             </td>
-            <td>
-              <font-awesome-icon @click="openCategoryModalEdit(mainEventId)" class="cursor-pointer"
-                                 :icon="['far', 'pen-to-square']"/>
+            <td v-if="this.mainEventId <= 0">
+              <font-awesome-icon @click="openCategoryModal(mainEventId)" :icon="['fas', 'plus']"/>
             </td>
           </tr>
           </tbody>
@@ -50,7 +50,7 @@
     <FeatureModal ref="featureModalRef" @event-feature-edited-or-added="eventFeatureEditedOrAdded"/>
   </div>
   <div>
-    <CategoryModal ref="categoryModalRef" @event-category-edited-or-added="eventCategoryEditedOrAdded"/>
+<!--    <CategoryModal ref="categoryModalRef" @event-category-edited-or-added="eventCategoryEditedOrAdded"/>-->
   </div>
 </template>
 
@@ -86,13 +86,13 @@ export default {
     }
   },
   methods: {
-    openFeatureModalNew(mainEventId) {
+    openFeatureModal(mainEventId) {
       // this.$refs.featureModalRef.mainEventId = mainEventId
       this.$refs.featureModalRef.decideIfNewOrEditFeatures(mainEventId)
       this.$refs.featureModalRef.$refs.modalRef.openModal()
     },
 
-    openCategoryModalNew(mainEventId) {
+    openCategoryModal(mainEventId) {
       // this.$refs.categoryModalRef.mainEventId = mainEventId
       this.$refs.categoryModalRef.decideIfNewOrEditCategories(mainEventId)
       this.$refs.categoryModalRef.$refs.modalRef.openModal()
@@ -124,6 +124,11 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
+
+    // setEditPageFormValues() {
+    //   this.$refs.categoryModalRef.sendGetCategoriesRequest()
+    //   this.$refs.categoryModalRef.updateEventCategories(this.selectedCategories)
+    // },
 
     eventCategoryEditedOrAdded() {
       this.sendGetSelectedCategoriesRequest()
