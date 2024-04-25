@@ -5,7 +5,7 @@
     </template>
     <template #body>
       <div class="row text-start mx-5">
-        <div v-if="this.mainEventId <= 0" class="col">
+        <div v-if="this.selectedCategories.length > 0" class="col">
           <div v-for="category in categories" :key="category.categoryId" class="form-check form-switch">
             <input v-model="category.isAvailable" class="form-check-input" type="checkbox" role="switch"
                    id="flexSwitchCheckDefault">
@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div v-if="this.mainEventId > 0" class="col">
+        <div v-if="this.selectedCategories.length === 0" class="col">
           <div v-for="selectedCategory in selectedCategories" :key="selectedCategory.categoryId" class="form-check form-switch">
             <input v-model="selectedCategory.isAvailable" class="form-check-input" type="checkbox" role="switch"
                    id="flexSwitchCheckDefault">
