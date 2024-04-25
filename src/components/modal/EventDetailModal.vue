@@ -10,11 +10,12 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Algus</label>
-        <input v-model="eventDetailInfo.startTime" type="text" class="form-control">
+        <input v-model="eventDetailInfo.startTime" type="text" class="form-control" placeholder="_:_">
+
       </div>
       <div class="mb-3">
         <label class="form-label">Lõpp</label>
-        <input v-model="eventDetailInfo.endTime" type="text" class="form-control">
+        <input v-model="eventDetailInfo.endTime" type="text" class="form-control" placeholder="_:_">
       </div>
       <div class="mb-3">
         <label class="form-label">Maakond</label>
@@ -57,7 +58,6 @@ export default {
 
       eventDetailInfo: {
 
-        mainEventId: 0,
         countyId: 0,
         date: '',
         startTime: '',
@@ -71,15 +71,14 @@ export default {
   },
   methods: {
     addEventDetail() {
-      this.$http.post("/event/detail/", this.eventDetailInfo, {
+      this.$http.post("/event/detail", this.eventDetailInfo, {
         params: {
           mainEventId: this.mainEventId
         }
       }
-      ).then(response => {
-        const mainEventId = response.data
-        router.push({name: 'eventDetailRoute', query: {mainEventId: mainEventId}})
+      ).then(() => {
         this.$refs.modalRef.closeModal()
+        router.push({name: 'eventDetailRoute', query: {mainEventId: this.mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
