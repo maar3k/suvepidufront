@@ -75,7 +75,8 @@ export default {
           }
       ).then(() => {
         this.closeFeatureModal()
-        //   siia refresh ja samale lehele tagasi
+        router.push({name: 'featureCategoryRoute'})
+        this.$emit('event-feature-edited-or-added')
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

@@ -41,7 +41,7 @@ import {useRoute} from "vue-router";
 import router from "@/router";
 
 export default {
-  name: "EventTicketTypesView",
+  name: "EventTicketTypeView",
   components: {TicketTypesModal},
   data() {
     return {

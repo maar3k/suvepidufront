@@ -25,7 +25,6 @@
           </tr>
           <tr>
             <td>
-              <!--              kas siin peaks miski muu id viide olema. Teistel on v-for loobi kaudu.-->
               <font-awesome-icon @click="openFeatureModalNew(mainEventId)" :icon="['fas', 'plus']"/>
             </td>
             <div>
@@ -48,10 +47,10 @@
     </div>
   </div>
   <div>
-    <FeatureModal ref="featureModalRef"/>
+    <FeatureModal ref="featureModalRef" @event-feature-edited-or-added="eventFeatureEditedOrAdded"/>
   </div>
   <div>
-    <CategoryModal ref="categoryModalRef"/>
+    <CategoryModal ref="categoryModalRef" @event-category-edited-or-added="eventCategoryEditedOrAdded"/>
   </div>
 </template>
 
@@ -126,15 +125,13 @@ export default {
       })
     },
 
-    // getMainEventIdFromUrlQueryParameter() {
-    //   // siin ei saa ainult urlist id-d vaid siin otsustame, kas on edit või new
-    //   if (this.mainEventId !== undefined) {
-    //     const mainEventId = Number(this.mainEventId);
-    //     this.sendGetSelectedFeaturesRequest(mainEventId)
-    //     this.sendGetSelectedCategoriesRequest(mainEventId)
-    //   }
-    // },
+    eventCategoryEditedOrAdded() {
+      this.sendGetSelectedCategoriesRequest()
+    },
 
+    eventFeatureEditedOrAdded() {
+      this.sendGetSelectedFeaturesRequest()
+    },
 
   },
 
