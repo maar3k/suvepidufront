@@ -29,17 +29,13 @@
 <script>
 import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
-import {useRoute} from "vue-router";
 
 export default {
   name: 'FeatureModal',
   components: {Modal},
-  // props: {
-  //   mainEventId: Number
-  // },
   data() {
     return {
-      mainEventId: Number(useRoute().query.mainEventId),
+      mainEventId: 0,
       features: [
         {
           featureId: 0,
@@ -52,7 +48,8 @@ export default {
         {
           featureId: 0,
           mainEventId: 0,
-          featureName: ''
+          featureName: '',
+          isAvailable: false
         }
       ],
     }
@@ -96,6 +93,7 @@ export default {
     },
 
     decideIfNewOrEditFeatures(mainEventId) {
+      this.mainEventId = mainEventId
       if (mainEventId !== 0) {
         this.sendGetSelectedFeaturesRequest(mainEventId)
       }

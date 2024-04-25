@@ -5,12 +5,21 @@
     </template>
     <template #body>
       <div class="row text-start mx-5">
-        <div class="col">
+        <div v-if="this.mainEventId <= 0" class="col">
           <div v-for="category in categories" :key="category.categoryId" class="form-check form-switch">
             <input v-model="category.isAvailable" class="form-check-input" type="checkbox" role="switch"
                    id="flexSwitchCheckDefault">
             <label class="form-check-label"
                    for="flexSwitchCheckDefault">{{ category.categoryName }}</label>
+          </div>
+        </div>
+
+        <div v-if="this.mainEventId > 0" class="col">
+          <div v-for="selectedCategory in selectedCategories" :key="selectedCategory.categoryId" class="form-check form-switch">
+            <input v-model="selectedCategory.isAvailable" class="form-check-input" type="checkbox" role="switch"
+                   id="flexSwitchCheckDefault">
+            <label class="form-check-label"
+                   for="flexSwitchCheckDefault">{{ selectedCategory.categoryName }}</label>
           </div>
         </div>
       </div>
@@ -29,17 +38,13 @@
 <script>
 import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
-import {useRoute} from "vue-router";
 
 export default {
   name: 'CategoryModal',
   components: {Modal},
-  // props: {
-  //   mainEventId: Number
-  // },
   data() {
     return {
-      mainEventId: Number(useRoute().query.mainEventId),
+      mainEventId: 0,
       categories: [
         {
           categoryId: 0,
@@ -96,23 +101,10 @@ export default {
       })
     },
 
-    updateEventCategories() {
-      const incomingEventCategories = this.selectedCategories
-      for (const incomingEventCategory of incomingEventCategories) {
-        for (const category of this.selectedCategories) {
-          if (incomingEventCategory.categoryId === category.categoryId) {
-            category.isAvailable = true
-          }
-        }
-      }
-    },
-
     decideIfNewOrEditCategories(mainEventId) {
+      this.mainEventId = mainEventId
       if (mainEventId !== 0) {
         this.sendGetSelectedCategoriesRequest(mainEventId)
-        this.updateEventCategories(mainEventId)
-      } else {
-        this.sendGetCategoriesRequest()
       }
     },
 
@@ -122,8 +114,7 @@ export default {
 
   },
   beforeMount() {
-    console.log(this.mainEventId)
-    this.decideIfNewOrEditCategories()
+    this.sendGetCategoriesRequest()
   }
 }
 </script>
