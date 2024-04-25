@@ -8,18 +8,13 @@
         <div class="container text-center">
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Vali piletitüüp</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected disabled>Piletitüübid</option>
-              <option value="1">Penskarid</option>
-              <option value="2">Taiskasvanud</option>
-              <option value="3">Lapsed</option>
-            </select>
+            <TicketTypeDropdown v-model="selectedTypeId" @change="getAndSetSelectedTypeId"/>
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Kogu piletite arv</label>
-            <input type="number" class="form-control" id="">
+            <input v-model="total" type="number" class="form-control" id="">
           </div>
-          <button type="submit" class="btn btn-primary">Lisa</button>
+          <button @click="addEventTicket" type="submit" class="btn btn-primary">Lisa</button>
         </div>
       </div>
     </template>
@@ -27,15 +22,37 @@
 </template>
 <script>
 import Modal from "@/components/modal/Modal.vue";
+import router from "@/router";
+import TicketTypeDropdown from "@/components/event/TicketTypeDropdown.vue";
 
 export default {
   name: "TicketModal",
-  components: {Modal},
+  components: {TicketTypeDropdown, Modal},
 
+  data() {
+    return {
+      selectedTypeId: 0,
+      eventTicketInfo: {
+        eventDetailId: 1,
+        ticketTypeId: 0,
+        total: 0
+      }
+    }
+  },
   methods: {
-
+    addEventTicket() {
+      this.$http.post("/event/ticket", this.eventTicketInfo
+      ).then(() => {
+        this.closeTicketModal()
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
     closeTicketModal() {
       this.$refs.ticketModalRef.$refs.modalRef.closeModal()
+    },
+    getAndSetSelectedTypeId() {
+      this.eventTicketInfo.ticketTypeId = this.selectedTypeId
     },
   }
 }
