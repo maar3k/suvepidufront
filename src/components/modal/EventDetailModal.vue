@@ -57,7 +57,6 @@ export default {
 
       eventDetailInfo: {
 
-        mainEventId: 0,
         countyId: 0,
         date: '',
         startTime: '',
@@ -71,15 +70,14 @@ export default {
   },
   methods: {
     addEventDetail() {
-      this.$http.post("/event/detail/", this.eventDetailInfo, {
+      this.$http.post("/event/detail", this.eventDetailInfo, {
         params: {
           mainEventId: this.mainEventId
         }
       }
-      ).then(response => {
-        const mainEventId = response.data
-        router.push({name: 'eventDetailRoute', query: {mainEventId: mainEventId}})
+      ).then(() => {
         this.$refs.modalRef.closeModal()
+        router.push({name: 'eventDetailRoute', query: {mainEventId: this.mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

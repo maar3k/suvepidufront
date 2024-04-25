@@ -17,21 +17,36 @@
             <th scope="col">Asukoht</th>
             <th scope="col">Pikkuskraad</th>
             <th scope="col">Laiuskraad</th>
+            <th scope="col">Lisa piletid</th>
+            <th scope="col">Muuda</th>
+            <th scope="col">Kustuta</th>
           </tr>
           </thead>
 
           <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr v-for="eventDetail in eventDetails" :key="eventDetail.eventDetailId">
+            <td>{{ eventDetail.date }}</td>
+            <td>{{ eventDetail.startTime }}</td>
+            <td>{{ eventDetail.endTime }}</td>
+            <td>{{ eventDetail.countyId }}</td>
+            <td>{{ eventDetail.address }}</td>
+            <td>{{ eventDetail.longitude }}</td>
+            <td>{{ eventDetail.latitude }}</td>
+
             <td>
               <button @click="navigateToEventTickets" type="button" class="btn btn-primary">Piletid</button>
             </td>
+
+            <td>
+              <font-awesome-icon @click="" class="cursor-pointer"
+                                 :icon="['far', 'pen-to-square']"/>
+            </td>
+
+            <td>
+              <font-awesome-icon @click="" class="cursor-pointer"
+                                 :icon="['far', 'trash-can']"/>
+            </td>
+
           </tr>
           </tbody>
 
@@ -50,6 +65,7 @@
 import router from "@/router";
 import EventDetailModal from "@/components/modal/EventDetailModal.vue";
 import {useRoute} from "vue-router";
+import eventDetailModal from "@/components/modal/EventDetailModal.vue";
 
 export default {
   name: "EventDetailView",
@@ -58,9 +74,9 @@ export default {
     return {
       mainEventId: useRoute().query.mainEventId,
 
-      eventDetailInfo: {
+      eventDetails: {
 
-        mainEventId: 0,
+        eventDetailId: 0,
         countyId: 0,
         date: '',
         startTime: '',
@@ -75,11 +91,15 @@ export default {
 
   methods: {
     sendGetEventDetailRequest() {
-      this.$http.get("/event/details/"
+      this.$http.get("/event/details", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
       ).then(response => {
-        this.eventDetailInfo = response.data
-      }).catch(error => {
-        this.errorResponse = error.response.data
+        this.eventDetails = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
       })
     },
 
