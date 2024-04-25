@@ -10,11 +10,12 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Algus</label>
-        <input v-model="eventDetailInfo.startTime" type="text" class="form-control">
+        <input v-model="eventDetailInfo.startTime" type="text" class="form-control" placeholder="_:_">
+
       </div>
       <div class="mb-3">
         <label class="form-label">Lõpp</label>
-        <input v-model="eventDetailInfo.endTime" type="text" class="form-control">
+        <input v-model="eventDetailInfo.endTime" type="text" class="form-control" placeholder="_:_">
       </div>
       <div class="mb-3">
         <label class="form-label">Maakond</label>

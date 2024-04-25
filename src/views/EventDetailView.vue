@@ -1,7 +1,7 @@
 <template>
   <EventDetailModal ref="eventDetailsModalRef"/>
   <div class="container text-center">
-    <h1>{{ mainEventId }}</h1>
+    <h2>{{ "Nimi: " + mainEventName }}</h2>
     <!--    todo: kuidas saada title mainevent tabelist kätte?-->
     <!--    TODO: event name to be added via backend-->
     <div class="row">
@@ -15,8 +15,8 @@
             <th scope="col">Lõpp</th>
             <th scope="col">Maakond</th>
             <th scope="col">Asukoht</th>
-            <th scope="col">Pikkuskraad</th>
-            <th scope="col">Laiuskraad</th>
+            <!--            <th scope="col">Pikkuskraad</th>-->
+            <!--            <th scope="col">Laiuskraad</th>-->
             <th scope="col">Lisa piletid</th>
             <th scope="col">Muuda</th>
             <th scope="col">Kustuta</th>
@@ -30,8 +30,8 @@
             <td>{{ eventDetail.endTime }}</td>
             <td>{{ eventDetail.countyId }}</td>
             <td>{{ eventDetail.address }}</td>
-            <td>{{ eventDetail.longitude }}</td>
-            <td>{{ eventDetail.latitude }}</td>
+            <!--            <td>{{ eventDetail.longitude }}</td>-->
+            <!--            <td>{{ eventDetail.latitude }}</td>-->
 
             <td>
               <button @click="navigateToEventTickets" type="button" class="btn btn-primary">Piletid</button>
@@ -65,7 +65,6 @@
 import router from "@/router";
 import EventDetailModal from "@/components/modal/EventDetailModal.vue";
 import {useRoute} from "vue-router";
-import eventDetailModal from "@/components/modal/EventDetailModal.vue";
 
 export default {
   name: "EventDetailView",
@@ -73,6 +72,7 @@ export default {
   data() {
     return {
       mainEventId: useRoute().query.mainEventId,
+      mainEventName: '',
 
       eventDetails: {
 
@@ -103,6 +103,20 @@ export default {
       })
     },
 
+    sendGetMainEventNameRequest() {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventName = response.data.title
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+
     navigateToEventTickets() {
       router.push({name: 'eventTicketsRoute'})
     },
@@ -115,6 +129,7 @@ export default {
 
   beforeMount() {
     this.sendGetEventDetailRequest()
+    this.sendGetMainEventNameRequest()
   }
 }
 
