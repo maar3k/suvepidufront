@@ -2,18 +2,19 @@
   <select v-model="selectedTypeId" @change="emitSelectedTypeId" class="form-select">
     <option selected disabled value="0">Piletitüübid</option>
     <option v-for="type in types" :value="type.ticketTypeId" :key="type.ticketTypeId">
-<!--      {{ type.ticketTypeName }}-->
-      <p>test</p>
+      {{ type.ticketTypeName }}
     </option>
   </select>
 </template>
 <script>
 import router from "@/router";
+import {useRoute} from "vue-router";
 
 export default {
   name: 'TicketTypeDropdown',
   data() {
     return {
+      // mainEventId: useRoute().query.mainEventId,
       mainEventId: 1,
       selectedTypeId: 0,
       types: [
@@ -25,7 +26,7 @@ export default {
     }
   },
   methods: {
-    sendGetEventTicketTypeRequest() {
+    sendGetEventTicketTypesRequest() {
       this.$http.get("/event/ticket-types", {
             params: {
               mainEventId: this.mainEventId
@@ -42,7 +43,7 @@ export default {
     },
   },
   beforeMount() {
-    this.sendGetEventTicketTypeRequest()
+    this.sendGetEventTicketTypesRequest()
   }
 }
 </script>

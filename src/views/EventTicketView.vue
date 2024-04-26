@@ -22,7 +22,7 @@
             <td>{{ ticketInfo.total }}</td>
             <td>{{ ticketInfo.available }}</td>
             <td>{{ ticketInfo.status }}</td>
-            <td><font-awesome-icon @click="navigateToEditEvent(mainEventInfo.mainEventId)" class="cursor-pointer"
+            <td><font-awesome-icon @click="openEventTicketEditModal(eventDetail.eventDetailId)" class="cursor-pointer"
                                    :icon="['far', 'pen-to-square']"/></td>
             <td><font-awesome-icon @click="openDeleteMainEventModal(mainEventInfo.mainEventId)" class="cursor-pointer"
                                    :icon="['far', 'trash-can']"/></td>
