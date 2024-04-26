@@ -1,8 +1,9 @@
 <template>
   <TicketModal ref="ticketModalRef"/>
   <div class="container text-center">
-    <h1>Suvegrill 2024 - Valga</h1>
-    <div class="row justify-content-center">
+    <!--<h1>{{"Tere " + mainEventName}}</h1>-->
+    <h1>mainEventNameTest</h1>
+    <div class="row">
       <div class="col-8">
         <table class="table">
           <thead>
@@ -36,16 +37,20 @@
 <script>
 import router from "@/router";
 import TicketModal from "@/components/modal/TicketModal.vue";
+import {useRoute} from "vue-router";
 
 export default {
-  name: "EventTicketView",
+  name: "EventTicketTypesView",
   components: {TicketModal},
 
   data() {
     return {
+      mainEventId: useRoute().query.mainEventId,
+      mainEventName: '',
       eventDetailId: 1,
       tickets: [
         {
+          eventTicketId: 0,
           ticketTypeName: '',
           total: 0,
           available: 0,
@@ -72,10 +77,22 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
-
+    sendGetMainEventNameRequest() {
+      this.$http.get("/event/main", {
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
+      ).then(response => {
+        this.mainEventName = response.data.title
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
   },
-  mounted() {
+  beforeMount() {
     this.sendGetEventTicketsRequest()
-  }
+    // this.sendGetMainEventNameRequest()
+  },
 }
 </script>

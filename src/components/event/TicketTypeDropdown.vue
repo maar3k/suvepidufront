@@ -2,8 +2,8 @@
   <select v-model="selectedTypeId" @change="emitSelectedTypeId" class="form-select">
     <option selected disabled value="0">Piletitüübid</option>
     <option v-for="type in types" :value="type.ticketTypeId" :key="type.ticketTypeId">
-      {{ type.ticketTypeName }}
-<!--      <p>test</p>-->
+<!--      {{ type.ticketTypeName }}-->
+      <p>test</p>
     </option>
   </select>
 </template>
