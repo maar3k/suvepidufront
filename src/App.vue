@@ -7,15 +7,14 @@
   <nav>
     <router-link to="/">AVALEHT</router-link>
     |
+    <router-link to="/events">MINU SÜNDMUSED</router-link>
+    |
     <template v-if="isLoggedIn">
-      <router-link to="/checkout">OSTUKORV</router-link>
-      |
       <template v-if="isAdmin">
         <router-link to="/events">MINU SÜNDMUSED</router-link>
         |
       </template>
       <a href="#" @click="openLogOutModal">LOGI VÄLJA</a>
-      |
     </template>
 
     <template v-else>
@@ -31,6 +30,7 @@
 
 import LoginModal from "@/components/modal/LoginModal.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
+import router from "@/router";
 
 export default {
   name: 'App',
@@ -44,7 +44,7 @@ export default {
   watch: {
     isAdmin() {
       if (this.isLoggedIn === true) {
-        window.location.reload()
+        router.push({name: 'homeView'})
       }
     },
   },
@@ -74,9 +74,6 @@ export default {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
     },
 
-    triggerReload() {
-      this.isLoggedIn = true
-    }
   },
   mounted() {
     this.updateNavMenu()
