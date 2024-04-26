@@ -1,5 +1,8 @@
 <template>
-  <EventDetailModal ref="eventDetailsModalRef"/>
+  <div>
+    <EventDetailModal ref="eventDetailModalRef"/>
+    <DeleteEventDetailModal @event-detail-deleted="eventEventDetailDeleted" ref="deleteEventDetailModalRef"/>
+  </div>
   <div class="container text-center">
     <h2>{{ "Nimi: " + mainEventName }}</h2>
     <!--    todo: kuidas saada title mainevent tabelist kätte?-->
@@ -38,12 +41,12 @@
             </td>
 
             <td>
-              <font-awesome-icon @click="" class="cursor-pointer"
+              <font-awesome-icon @click="openEventDetailEditModal" class="cursor-pointer"
                                  :icon="['far', 'pen-to-square']"/>
             </td>
 
             <td>
-              <font-awesome-icon @click="" class="cursor-pointer"
+              <font-awesome-icon @click="openDeleteEventDetailModal" class="cursor-pointer"
                                  :icon="['far', 'trash-can']"/>
             </td>
 
@@ -58,25 +61,32 @@
 
       </div>
     </div>
+
+    <div>
+      <EventDetailModal ref="eventDetailModalRef" @event-detail-edited-or-added="eventDetailEditedOrAdded"/>
+    </div>
+
   </div>
 </template>
 
 <script>
 import router from "@/router";
 import EventDetailModal from "@/components/modal/EventDetailModal.vue";
+import DeleteEventDetailModal from "@/components/modal/DeleteEventDetailModal.vue";
 import {useRoute} from "vue-router";
 
 export default {
   name: "EventDetailView",
-  components: {EventDetailModal},
+  components: {EventDetailModal, DeleteEventDetailModal},
   data() {
     return {
       mainEventId: useRoute().query.mainEventId,
       mainEventName: '',
 
+      eventDetailId: 0,
+
       eventDetails: {
 
-        eventDetailId: 0,
         countyId: 0,
         date: '',
         startTime: '',
@@ -116,15 +126,31 @@ export default {
       })
     },
 
+    eventDetailEditedOrAdded() {
+      this.sendGetEventDetailRequest()
+    },
+
+    openEventDetailEditModal(eventDetailId) {
+      this.$refs.eventDetailModalRef.decideIfNewOrEditEventDetail(eventDetailId, this.mainEventId);
+      this.$refs.eventDetailModalRef.$refs.modalRef.openModal()
+    },
 
     navigateToEventTickets() {
       router.push({name: 'eventTicketsRoute'})
     },
 
     openEventDetailsModal() {
-      this.$refs.eventDetailsModalRef.$refs.modalRef.openModal()
-    }
+      this.$refs.eventDetailModalRef.$refs.modalRef.openModal()
+    },
 
+    openDeleteEventDetailModal(eventDetailId) {
+      this.$refs.deleteEventDetailModalRef.eventDetailId = eventDetailId;
+      this.$refs.deleteEventDetailModalRef.$refs.modalRef.openModal()
+    },
+
+    eventEventDetailDeleted() {
+      this.sendGetEventDetailRequest()
+    }
   },
 
   beforeMount() {
@@ -132,5 +158,6 @@ export default {
     this.sendGetMainEventNameRequest()
   }
 }
+
 
 </script>
