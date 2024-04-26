@@ -55,9 +55,8 @@
 
         </table>
 
-        <button @click="openEventDetailsModal">
-          <font-awesome-icon :icon="['fas', 'plus']"/>
-        </button>
+          <font-awesome-icon @click="openEventDetailsModal":icon="['fas', 'plus']"></font-awesome-icon>
+
 
       </div>
     </div>

@@ -35,9 +35,12 @@
       </div>
     </template>
     <template #buttons>
-      <button v-if="isAdd" @click="addEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Lisa</button>
-      <button v-else @click="editEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Salvesta</button>
-      <button @click="closeEventDetailModal" type="submit" class="btn btn-primary text-center text-nowrap">Loobu</button>
+      <button v-if="isAdd" @click="addEventDetail" type="submit" class="button-success btn btn-primary text-center text-nowrap">Lisa
+      </button>
+      <button v-else @click="editEventDetail" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Salvesta
+      </button>
+      <button @click="closeEventDetailModal" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu
+      </button>
     </template>
 
   </Modal>
@@ -70,23 +73,23 @@ export default {
   methods: {
     handleOpenEventDetailModalAsEdit(eventDetailId) {
       this.sendGetEventDetailRequest(eventDetailId);
-
+      this.sendEditEventDetailRequest(eventDetailId)
     },
 
     addEventDetail() {
-        this.sendAddEventDetailRequest()
+      this.sendAddEventDetailRequest()
     },
 
     editEventDetail() {
-        this.sendEditEventDetailRequest()
+      this.sendEditEventDetailRequest()
     },
 
     sendAddEventDetailRequest() {
       this.$http.post("/event/detail", this.eventDetailInfo, {
-        params: {
-          mainEventId: this.mainEventId
-        }
-      }
+            params: {
+              mainEventId: this.mainEventId
+            }
+          }
       ).then(() => {
         this.closeEventDetailModal()
         router.push({name: 'eventDetailRoute'})
@@ -96,8 +99,12 @@ export default {
       })
     },
 
-    sendEditEventDetailRequest() {
-      this.$http.put("/event/detail", this.eventDetailInfo
+    sendEditEventDetailRequest(eventDetailId) {
+      this.$http.put("/event/detail", this.eventDetailInfo, {
+            params: {
+              eventDetailId: eventDetailId
+            }
+          }
       ).then(() => {
         this.closeEventDetailModal()
         router.push({name: 'eventDetailRoute'})
@@ -123,12 +130,11 @@ export default {
       ).then(response => {
         this.eventDetailInfo = response.data
         this.$refs.modalRef.openModal()
-        setTimeout(this.setCountyDropdownSelectedCountyId,500)
+        setTimeout(this.setCountyDropdownSelectedCountyId, 500)
       }).catch(() => {
         // router.push({name: 'errorRoute'})
       })
     },
-
 
 
     setSelectedCountyId(selectedCountyId) {
