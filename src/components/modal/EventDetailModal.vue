@@ -35,11 +35,14 @@
       </div>
     </template>
     <template #buttons>
-      <button v-if="isAdd" @click="addEventDetail" type="submit" class="button-success btn btn-primary text-center text-nowrap">Lisa
+      <button v-if="isAdd" @click="addEventDetail" type="submit"
+              class="button-success btn btn-primary text-center text-nowrap">Lisa
       </button>
-      <button v-else @click="editEventDetail" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Salvesta
+      <button v-else @click="editEventDetail" type="submit"
+              class="button-cancel btn btn-primary text-center text-nowrap">Salvesta
       </button>
-      <button @click="closeEventDetailModal" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu
+      <button @click="closeEventDetailModal" type="submit"
+              class="button-danger btn btn-primary text-center text-nowrap">Loobu
       </button>
     </template>
 
@@ -59,6 +62,8 @@ export default {
     return {
       isAdd: false,
       mainEventId: Number(useRoute().query.mainEventId),
+      eventDetailId: 0,
+
       eventDetailInfo: {
         countyId: 0,
         date: '',
@@ -72,8 +77,8 @@ export default {
   },
   methods: {
     handleOpenEventDetailModalAsEdit(eventDetailId) {
-      this.sendGetEventDetailRequest(eventDetailId);
-      this.sendEditEventDetailRequest(eventDetailId)
+      this.eventDetailId = eventDetailId
+      this.sendGetEventDetailRequest();
     },
 
     addEventDetail() {
@@ -81,7 +86,7 @@ export default {
     },
 
     editEventDetail() {
-      this.sendEditEventDetailRequest()
+      this.sendPutEventDetailRequest()
     },
 
     sendAddEventDetailRequest() {
@@ -99,10 +104,10 @@ export default {
       })
     },
 
-    sendEditEventDetailRequest(eventDetailId) {
+    sendPutEventDetailRequest() {
       this.$http.put("/event/detail", this.eventDetailInfo, {
             params: {
-              eventDetailId: eventDetailId
+              eventDetailId: this.eventDetailId
             }
           }
       ).then(() => {
@@ -110,7 +115,7 @@ export default {
         router.push({name: 'eventDetailRoute'})
         this.$emit('event-detail-edited-or-added')
       }).catch(() => {
-        router.push({name: 'errorRoute'})
+        // router.push({name: 'errorRoute'})
       })
     },
 
@@ -121,10 +126,10 @@ export default {
     setCountyDropdownSelectedCountyId() {
       this.$refs.countyDropdownRef.selectedCountyId = this.eventDetailInfo.countyId
     },
-    sendGetEventDetailRequest(eventDetailId) {
+    sendGetEventDetailRequest() {
       this.$http.get("/event/detail", {
             params: {
-              eventDetailId: eventDetailId
+              eventDetailId: this.eventDetailId
             }
           }
       ).then(response => {
@@ -135,7 +140,6 @@ export default {
         // router.push({name: 'errorRoute'})
       })
     },
-
 
     setSelectedCountyId(selectedCountyId) {
       this.eventDetailInfo.countyId = selectedCountyId
