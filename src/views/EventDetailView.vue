@@ -41,7 +41,7 @@
             </td>
 
             <td>
-              <font-awesome-icon @click="openEventDetailEditModal" class="cursor-pointer"
+              <font-awesome-icon @click="openEventDetailEditModal(eventDetail.eventDetailId)" class="cursor-pointer"
                                  :icon="['far', 'pen-to-square']"/>
             </td>
 
@@ -82,20 +82,19 @@ export default {
     return {
       mainEventId: useRoute().query.mainEventId,
       mainEventName: '',
-
-      eventDetailId: 0,
-
-      eventDetails: {
-
-        countyId: 0,
-        date: '',
-        startTime: '',
-        endTime: '',
-        address: '',
-        longitude: 0,
-        latitude: 0,
-        countyName: ''
-      }
+      eventDetails: [
+        {
+          eventDetailId: 0,
+          countyId: 0,
+          date: '',
+          startTime: '',
+          endTime: '',
+          address: '',
+          longitude: 0,
+          latitude: 0,
+          countyName: '',
+        }
+      ]
 
     }
   },
@@ -132,8 +131,7 @@ export default {
     },
 
     openEventDetailEditModal(eventDetailId) {
-      this.$refs.eventDetailModalRef.decideIfNewOrEditEventDetail(eventDetailId, this.mainEventId);
-      this.$refs.eventDetailModalRef.$refs.modalRef.openModal()
+      this.$refs.eventDetailModalRef.handleOpenEventDetailModalAsEdit(eventDetailId)
     },
 
     navigateToEventTickets() {

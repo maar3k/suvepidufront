@@ -19,7 +19,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Maakond</label>
-        <CountyDropdown v-model="selectedCountyId" @change="getAndSetSelectedCountyId"/>
+        <CountyDropdown ref="countyDropdownRef" @event-selected-county-change="setSelectedCountyId"/>
       </div>
       <div class="mb-3">
         <label class="form-label">Aadress</label>
@@ -35,7 +35,8 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="addOrEditEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Lisa</button>
+      <button v-if="isAdd" @click="addEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Lisa</button>
+      <button v-else @click="editEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Salvesta</button>
       <button @click="closeEventDetailModal" type="submit" class="btn btn-primary text-center text-nowrap">Loobu</button>
     </template>
 
@@ -53,30 +54,31 @@ export default {
   components: {Modal, CountyDropdown},
   data() {
     return {
+      isAdd: false,
       mainEventId: Number(useRoute().query.mainEventId),
-      selectedCountyId: 0,
-
       eventDetailInfo: {
-
         countyId: 0,
         date: '',
         startTime: '',
         endTime: '',
         address: '',
         longitude: 0,
-        latitude: 0,
-        eventDetailId: 0,
-
+        latitude: 0
       },
     }
   },
   methods: {
-    addOrEditEventDetail() {
-      if (this.eventDetailInfo.eventDetailId !== 0) {
-        this.sendEditEventDetailRequest()
-      } else {
+    handleOpenEventDetailModalAsEdit(eventDetailId) {
+      this.sendGetEventDetailRequest(eventDetailId);
+
+    },
+
+    addEventDetail() {
         this.sendAddEventDetailRequest()
-      }
+    },
+
+    editEventDetail() {
+        this.sendEditEventDetailRequest()
     },
 
     sendAddEventDetailRequest() {
@@ -109,6 +111,9 @@ export default {
       this.$refs.modalRef.closeModal()
     },
 
+    setCountyDropdownSelectedCountyId() {
+      this.$refs.countyDropdownRef.selectedCountyId = this.eventDetailInfo.countyId
+    },
     sendGetEventDetailRequest(eventDetailId) {
       this.$http.get("/event/detail", {
             params: {
@@ -117,20 +122,17 @@ export default {
           }
       ).then(response => {
         this.eventDetailInfo = response.data
+        this.$refs.modalRef.openModal()
+        setTimeout(this.setCountyDropdownSelectedCountyId,500)
       }).catch(() => {
-        router.push({name: 'errorRoute'})
+        // router.push({name: 'errorRoute'})
       })
     },
 
-    decideIfNewOrEditEventDetail(eventDetailId, mainEventId) {
-      this.mainEventId = mainEventId
-      if (eventDetailId !== 0) {
-        this.sendGetEventDetailRequest(eventDetailId)
-      }
-    },
 
-    getAndSetSelectedCountyId() {
-      this.eventDetailInfo.countyId = this.selectedCountyId
+
+    setSelectedCountyId(selectedCountyId) {
+      this.eventDetailInfo.countyId = selectedCountyId
     },
 
   }
