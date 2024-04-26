@@ -1,13 +1,11 @@
 <template>
-  <LoginModal ref="loginModalRef"/>
-  <LogOutModal ref="logOutModalRef"/>
+  <LoginModal ref="loginModalRef" @event-update-nav-menu="updateNavMenu"/>
+  <LogOutModal ref="logOutModalRef" @event-update-nav-menu="updateNavMenu"/>
   <div class="logo mt-3">
     <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
   <nav>
     <router-link to="/">AVALEHT</router-link>
-    |
-    <router-link to="/events">MINU SÜNDMUSED</router-link>
     |
     <template v-if="isLoggedIn">
       <template v-if="isAdmin">
@@ -23,7 +21,7 @@
 
 
   </nav>
-  <router-view @event-update-nav-menu="updateNavMenu"/>
+  <router-view/>
 </template>
 
 <script>
@@ -40,13 +38,6 @@ export default {
       isLoggedIn: false,
       isAdmin: false
     }
-  },
-  watch: {
-    isAdmin() {
-      if (this.isLoggedIn === true) {
-        router.push({name: 'homeView'})
-      }
-    },
   },
   methods: {
     updateNavMenu() {
@@ -75,9 +66,6 @@ export default {
     },
 
   },
-  mounted() {
-    this.updateNavMenu()
-  }
 }
 </script>
 
