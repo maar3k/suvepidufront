@@ -28,7 +28,6 @@
 
 import LoginModal from "@/components/modal/LoginModal.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
-import router from "@/router";
 
 export default {
   name: 'App',
