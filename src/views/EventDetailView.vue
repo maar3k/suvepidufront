@@ -31,7 +31,7 @@
             <td>{{ eventDetail.date }}</td>
             <td>{{ eventDetail.startTime }}</td>
             <td>{{ eventDetail.endTime }}</td>
-            <td>{{ eventDetail.countyId }}</td>
+            <td>{{ eventDetail.countyName }}</td>
             <td>{{ eventDetail.address }}</td>
             <!--            <td>{{ eventDetail.longitude }}</td>-->
             <!--            <td>{{ eventDetail.latitude }}</td>-->
@@ -94,6 +94,7 @@ export default {
         address: '',
         longitude: 0,
         latitude: 0,
+        countyName: ''
       }
 
     }
