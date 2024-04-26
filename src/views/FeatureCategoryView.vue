@@ -46,10 +46,10 @@
     </div>
   </div>
   <div>
-    <FeatureModal ref="featureModalRef" @event-feature-edited-or-added="eventFeatureEditedOrAdded"/>
+    <FeatureModal ref="featureModalRef" @event-feature-edited-or-added="sendGetSelectedFeaturesRequest"/>
   </div>
   <div>
-    <CategoryModal ref="categoryModalRef" @event-category-edited-or-added="eventCategoryEditedOrAdded"/>
+    <CategoryModal ref="categoryModalRef" @event-category-edited-or-added="sendGetSelectedCategoriesRequest"/>
   </div>
 </template>
 
@@ -126,14 +126,6 @@ export default {
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
-    },
-
-    eventCategoryEditedOrAdded() {
-      this.sendGetSelectedCategoriesRequest()
-    },
-
-    eventFeatureEditedOrAdded() {
-      this.sendGetSelectedFeaturesRequest()
     },
 
     sendGetMainEventNameRequest() {

@@ -31,7 +31,7 @@
         <button @click="addNewUser" type="submit" class="button-success btn btn-primary text-center text-nowrap">
           OK
         </button>
-        <button @click="" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loobu</button>
+        <button @click="" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu</button>
       </div>
     </div>
 

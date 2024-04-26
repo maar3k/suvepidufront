@@ -23,7 +23,7 @@
     <template #buttons>
       <button @click="addOrUpdateTicketType" type="submit" class="btn button-success btn-primary">OK</button>
       <button @click="closeTicketTypeModal" type="submit"
-              class="button-cancel btn btn-primary text-center text-nowrap">Loobu
+              class="button-danger btn btn-primary text-center text-nowrap">Loobu
       </button>
     </template>
   </Modal>

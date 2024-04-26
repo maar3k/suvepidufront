@@ -1,5 +1,6 @@
 <template>
   <LoginModal ref="loginModalRef"/>
+  <LogOutModal ref="logOutModalRef"/>
   <div class="logo mt-3">
     <img src="../src/assets/logo.png" alt="company logo" height="200"/>
   </div>
@@ -11,6 +12,8 @@
     <router-link to="/events">MINU SÜNDMUSED</router-link>
     |
     <a href="#" @click="openLoginModal">LOGI SISSE</a>
+    |
+    <a href="#" @click="openLogOutModal">LOGI VÄLJA</a>
   </nav>
   <router-view/>
 </template>
@@ -18,13 +21,18 @@
 <script>
 
 import LoginModal from "@/components/modal/LoginModal.vue";
+import LogOutModal from "@/components/modal/LogOutModal.vue";
 
 export default {
   name: 'App',
-  components: {LoginModal},
+  components: {LogOutModal, LoginModal},
   methods: {
     openLoginModal() {
       this.$refs.loginModalRef.$refs.modalRef.openModal()
+    },
+
+    openLogOutModal() {
+      this.$refs.logOutModalRef.$refs.modalRef.openModal()
     },
   }
 }

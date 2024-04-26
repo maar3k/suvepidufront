@@ -15,15 +15,15 @@
             <th scope="col">Nimi</th>
             <th scope="col">Kirjeldus</th>
             <th scope="col">Pilt</th>
-            <th scope="col">Lisa:</th>
-            <th scope="col">Lisa:</th>
-            <th scope="col">Lisa:</th>
+            <th scope="col">Võimalused ja kategooriad</th>
+            <th scope="col">Toimumiskohad</th>
+            <th scope="col">Piletitüübid</th>
             <th scope="col">Muuda</th>
             <th scope="col">Kustuta</th>
           </tr>
           </thead>
 
-          <tbody>
+          <tbody v-if="this.selectedBusinessId !== 0">
           <tr v-for="mainEventInfo in mainEvents" :key="mainEventInfo.mainEventId">
             <td>{{ mainEventInfo.title }}</td>
             <td>{{ mainEventInfo.description }}</td>
@@ -32,17 +32,16 @@
             </td>
             <td>
               <button @click="navigateToFeaturesCategories(mainEventInfo.mainEventId)" type="button"
-                      class="btn btn-primary">Võimalused ja
-                kategooriad
+                      class="button-success btn btn-primary">Võimalused ja kategooriad
               </button>
             </td>
             <td>
-              <button @click="navigateToEventDetail(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">
+              <button @click="navigateToEventDetail(mainEventInfo.mainEventId)" type="button" class="button-success btn btn-primary">
                 Toimumiskohad
               </button>
             </td>
             <td>
-              <button @click="navigateToTicketTypes(mainEventInfo.mainEventId)" type="button" class="btn btn-primary">
+              <button @click="navigateToTicketTypes(mainEventInfo.mainEventId)" type="button" class="button-success btn btn-primary">
                 Piletitüübid
               </button>
             </td>

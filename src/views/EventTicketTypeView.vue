@@ -28,7 +28,7 @@
     </div>
 
     <div>
-      <TicketTypeModal ref="ticketTypesModalRef" @event-ticket-type-edited-or-added="eventTicketTypeEditedOrAdded"/>
+      <TicketTypeModal ref="ticketTypesModalRef" @event-ticket-type-edited-or-added="sendGetTicketTypesRequest"/>
     </div>
 
   </div>
@@ -80,10 +80,6 @@ export default {
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
-    },
-
-    eventTicketTypeEditedOrAdded() {
-      this.sendGetTicketTypesRequest()
     },
 
     sendGetMainEventNameRequest() {

@@ -29,7 +29,7 @@
               class="button-success btn btn-primary text-center text-nowrap">
         OK
       </button>
-      <button @click="closeCategoryModal" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">
+      <button @click="closeCategoryModal" type="submit" class="button-danger btn btn-primary text-center text-nowrap">
         Loobu
       </button>
     </template>

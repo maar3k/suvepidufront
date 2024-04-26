@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modalRef">
     <template #title>
-      Logi sisse
+      <h3>Logi sisse</h3>
     </template>
     <template #body>
       <div class="container text-start">
@@ -20,8 +20,8 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="executeLogIn" type="submit" class="btn btn-primary text-center text-nowrap">Logi sisse</button>
-      <button @click="executeNewUser" type="submit" class="btn btn-primary text-center text-nowrap">Loo konto</button>
+      <button @click="executeLogIn" type="submit" class="button-success btn btn-primary text-center text-nowrap">Logi sisse</button>
+      <button @click="executeNewUser" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loo konto</button>
     </template>
   </Modal>
 </template>
