@@ -3,7 +3,7 @@
   <div class="container text-center">
     <!--<h1>{{"Tere " + mainEventName}}</h1>-->
     <h1>mainEventNameTest</h1>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-8">
         <table class="table">
           <thead>
@@ -12,8 +12,8 @@
             <th scope="col">Kogu piletite arv</th>
             <th scope="col">Saadaval</th>
             <th scope="col">Staatus</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">Muuda</th>
+            <th scope="col">Kustuta</th>
           </tr>
           </thead>
           <tbody>
