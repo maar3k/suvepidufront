@@ -106,6 +106,7 @@ export default {
       this.$http.post("/account/user", this.userInfo
       ).then(() => {
         this.successMessage = "Uus kasutaja " + this.userInfo.username + " registreeritud!"
+        // this.resetAllInputFieldsUser()
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -115,6 +116,7 @@ export default {
       this.$http.post("/account/business", this.businessInfo
       ).then(() => {
         this.successMessage = "Uus korraldaja " + this.businessInfo.companyName + " registreeritud!"
+        // this.resetAllInputFieldsBusiness()
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -122,7 +124,24 @@ export default {
 
     setSelectedRoleId(selectedRoleId) {
       this.selectedRoleId = selectedRoleId
-    }
+    },
+
+    resetAllInputFieldsUser() {
+      this.userInfo.roleId = 0
+      this.userInfo.username = ''
+      this.userInfo.password = ''
+    },
+
+    resetAllInputFieldsBusiness() {
+      this.businessInfo.roleId = 0
+      this.businessInfo.username = ''
+      this.businessInfo.password = ''
+      this.businessInfo.companyName = ''
+      this.businessInfo.registryCode = ''
+      this.businessInfo.vatNumber = ''
+      this.businessInfo.phone = ''
+      this.businessInfo.email = ''
+    },
 
   },
 

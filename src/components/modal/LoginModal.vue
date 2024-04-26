@@ -20,8 +20,12 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="executeLogIn" type="submit" class="button-success btn btn-primary text-center text-nowrap">Logi sisse</button>
-      <button @click="executeNewUser" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loo konto</button>
+      <button @click="sendLogInRequest" type="submit" class="button-success btn btn-primary text-center text-nowrap">
+        Logi sisse
+      </button>
+      <button @click="executeNewUser" type="submit" class="button-cancel btn btn-primary text-center text-nowrap">Loo
+        konto
+      </button>
     </template>
   </Modal>
 </template>
@@ -57,7 +61,7 @@ export default {
       router.push({name: 'newUserRoute'})
     },
 
-    executeLogIn() {
+    sendLogInRequest() {
       this.$http.get('/login', {
             params: {
               username: this.username,
@@ -66,14 +70,29 @@ export default {
           }
       ).then(response => {
         this.loginResponse = response.data
-        this.username = ''
-        this.password = ''
-        this.$refs.modalRef.closeModal()
-        router.push({name: 'checkoutRoute'})
+        this.handleLoginRequestResponse()
       }).catch(() => {
-        this.errorResponse.message
+        router.push({name: 'errorRoute'})
         this.$refs.modalRef.closeModal()
       })
+    },
+
+    handleLoginRequestResponse() {
+      this.saveLoginResponseInfoToSessionStorage()
+      this.$emit('event-update-nav-menu')
+      this.resetAllInputField()
+      this.$refs.modalRef.closeModal()
+      router.push({name: 'homeRoute'})
+    },
+
+    saveLoginResponseInfoToSessionStorage() {
+      sessionStorage.setItem('userId', this.loginResponse.userId)
+      sessionStorage.setItem('roleName', this.loginResponse.roleName)
+    },
+
+    resetAllInputField() {
+      this.username = ''
+      this.password = ''
     },
   },
 

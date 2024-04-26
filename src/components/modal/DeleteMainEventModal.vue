@@ -25,7 +25,7 @@ import router from "@/router";
 import {useRoute} from "vue-router";
 
 export default {
-  name: "DeleteMainEventModal",
+  name: 'DeleteMainEventModal',
   components: {Modal},
   props: {
     mainEventId: Number
