@@ -35,8 +35,8 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="addEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Lisa</button>
-      <button @click="executeCancel" type="submit" class="btn btn-primary text-center text-nowrap">Loobu</button>
+      <button @click="addOrEditEventDetail" type="submit" class="btn btn-primary text-center text-nowrap">Lisa</button>
+      <button @click="closeEventDetailModal" type="submit" class="btn btn-primary text-center text-nowrap">Loobu</button>
     </template>
 
   </Modal>
@@ -65,27 +65,68 @@ export default {
         address: '',
         longitude: 0,
         latitude: 0,
+        eventDetailId: 0,
 
       },
     }
   },
   methods: {
-    addEventDetail() {
+    addOrEditEventDetail() {
+      if (this.eventDetailInfo.eventDetailId !== 0) {
+        this.sendEditEventDetailRequest()
+      } else {
+        this.sendAddEventDetailRequest()
+      }
+    },
+
+    sendAddEventDetailRequest() {
       this.$http.post("/event/detail", this.eventDetailInfo, {
         params: {
           mainEventId: this.mainEventId
         }
       }
       ).then(() => {
-        this.$refs.modalRef.closeModal()
-        router.push({name: 'eventDetailRoute', query: {mainEventId: this.mainEventId}})
+        this.closeEventDetailModal()
+        router.push({name: 'eventDetailRoute'})
+        this.$emit('event-detail-edited-or-added')
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
     },
 
-    executeCancel() {
+    sendEditEventDetailRequest() {
+      this.$http.put("/event/detail", this.eventDetailInfo
+      ).then(() => {
+        this.closeEventDetailModal()
+        router.push({name: 'eventDetailRoute'})
+        this.$emit('event-detail-edited-or-added')
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    closeEventDetailModal() {
       this.$refs.modalRef.closeModal()
+    },
+
+    sendGetEventDetailRequest(eventDetailId) {
+      this.$http.get("/event/detail", {
+            params: {
+              eventDetailId: eventDetailId
+            }
+          }
+      ).then(response => {
+        this.eventDetailInfo = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    decideIfNewOrEditEventDetail(eventDetailId, mainEventId) {
+      this.mainEventId = mainEventId
+      if (eventDetailId !== 0) {
+        this.sendGetEventDetailRequest(eventDetailId)
+      }
     },
 
     getAndSetSelectedCountyId() {
