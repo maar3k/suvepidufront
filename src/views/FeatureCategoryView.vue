@@ -89,13 +89,11 @@ export default {
   },
   methods: {
     openFeatureModal() {
-      // this.$refs.featureModalRef.mainEventId = mainEventId
       this.$refs.featureModalRef.decideIfNewOrEditFeatures(this.mainEventId)
       this.$refs.featureModalRef.$refs.modalRef.openModal()
     },
 
     openCategoryModal() {
-      // this.$refs.categoryModalRef.mainEventId = mainEventId
       this.$refs.categoryModalRef.decideIfNewOrEditCategories(this.mainEventId)
       this.$refs.categoryModalRef.$refs.modalRef.openModal()
     },

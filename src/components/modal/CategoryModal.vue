@@ -5,7 +5,7 @@
     </template>
     <template #body>
       <div class="row text-start mx-5">
-        <div v-if="this.selectedCategories.length > 0" class="col">
+        <div class="col">
           <div v-for="category in categories" :key="category.categoryId" class="form-check form-switch">
             <input v-model="category.isAvailable" class="form-check-input" type="checkbox" role="switch"
                    id="flexSwitchCheckDefault">
@@ -13,19 +13,10 @@
                    for="flexSwitchCheckDefault">{{ category.categoryName }}</label>
           </div>
         </div>
-
-        <div v-if="this.selectedCategories.length === 0" class="col">
-          <div v-for="selectedCategory in selectedCategories" :key="selectedCategory.categoryId" class="form-check form-switch">
-            <input v-model="selectedCategory.isAvailable" class="form-check-input" type="checkbox" role="switch"
-                   id="flexSwitchCheckDefault">
-            <label class="form-check-label"
-                   for="flexSwitchCheckDefault">{{ selectedCategory.categoryName }}</label>
-          </div>
-        </div>
       </div>
     </template>
     <template #buttons>
-      <button @click="sendPostEventCategoriesRequest" type="submit"
+      <button @click="sendPutCategoriesRequest" type="submit"
               class="button-success btn btn-primary text-center text-nowrap">
         OK
       </button>
@@ -52,15 +43,6 @@ export default {
           isAvailable: false
         }
       ],
-
-      selectedCategories: [
-        {
-          categoryId: 0,
-          mainEventId: 0,
-          categoryName: '',
-          isAvailable: false
-        }
-      ]
     }
   },
   methods: {
@@ -73,8 +55,21 @@ export default {
       })
     },
 
-    sendPostEventCategoriesRequest() {
-      this.$http.post("/event/categories", this.categories, {
+    sendGetSelectedCategoriesForModalRequest(mainEventId) {
+      this.$http.get("/event/categories-modal", {
+            params: {
+              mainEventId: mainEventId
+            }
+          }
+      ).then(response => {
+        this.categories = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    sendPutCategoriesRequest() {
+      this.$http.put("/event/categories-modal", this.categories, {
             params: {
               mainEventId: this.mainEventId
             }
@@ -88,23 +83,10 @@ export default {
       })
     },
 
-    sendGetSelectedCategoriesRequest(mainEventId) {
-      this.$http.get("/event/categories", {
-            params: {
-              mainEventId: mainEventId
-            }
-          }
-      ).then(response => {
-        this.selectedCategories = response.data
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
-      })
-    },
-
     decideIfNewOrEditCategories(mainEventId) {
       this.mainEventId = mainEventId
       if (mainEventId !== 0) {
-        this.sendGetSelectedCategoriesRequest(mainEventId)
+        this.sendGetSelectedCategoriesForModalRequest(mainEventId)
       }
     },
 
