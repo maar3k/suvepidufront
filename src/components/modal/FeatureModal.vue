@@ -16,7 +16,7 @@
       </div>
     </template>
     <template #buttons>
-      <button @click="sendPostEventFeaturesRequest" type="submit"
+      <button @click="sendPutFeaturesRequest" type="submit"
               class="button-success btn btn-primary text-center text-nowrap">
         OK
       </button>
@@ -43,15 +43,6 @@ export default {
           isAvailable: false
         }
       ],
-
-      selectedFeatures: [
-        {
-          featureId: 0,
-          mainEventId: 0,
-          featureName: '',
-          isAvailable: false
-        }
-      ],
     }
   },
   methods: {
@@ -64,8 +55,21 @@ export default {
       })
     },
 
-    sendPostEventFeaturesRequest() {
-      this.$http.post("/event/features", this.features, {
+    sendGetSelectedFeaturesForModalRequest(mainEventId) {
+      this.$http.get("/event/features-modal", {
+            params: {
+              mainEventId: mainEventId
+            }
+          }
+      ).then(response => {
+        this.features = response.data
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    sendPutFeaturesRequest() {
+      this.$http.put("/event/features-modal", this.features, {
             params: {
               mainEventId: this.mainEventId
             }
@@ -73,20 +77,7 @@ export default {
       ).then(() => {
         this.closeFeatureModal()
         router.push({name: 'featureCategoryRoute'})
-        this.$emit('event-feature-edited-or-added')
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
-      })
-    },
-
-    sendGetSelectedFeaturesRequest(mainEventId) {
-      this.$http.get("/event/features", {
-            params: {
-              mainEventId: mainEventId
-            }
-          }
-      ).then(response => {
-        this.selectedFeatures = response.data
+        this.$emit('event-category-edited-or-added')
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -95,7 +86,7 @@ export default {
     decideIfNewOrEditFeatures(mainEventId) {
       this.mainEventId = mainEventId
       if (mainEventId !== 0) {
-        this.sendGetSelectedFeaturesRequest(mainEventId)
+        this.sendGetSelectedFeaturesForModalRequest(mainEventId)
       }
     },
 
