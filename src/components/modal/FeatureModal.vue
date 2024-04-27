@@ -1,7 +1,7 @@
 <template>
   <Modal ref="modalRef">
     <template #title>
-      <h3>Lisa sündmuse võimaluse</h3>
+      <h3>Lisa sündmusele võimalused</h3>
     </template>
     <template #body>
       <div class="row text-start mx-5">
@@ -76,8 +76,8 @@ export default {
           }
       ).then(() => {
         this.closeFeatureModal()
-        router.push({name: 'featureCategoryRoute'})
-        this.$emit('event-category-edited-or-added')
+        this.$emit('event-feature-edited-or-added')
+        router.push({name: 'featureCategoryRoute', query: {mainEventId: this.mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

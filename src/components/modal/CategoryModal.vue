@@ -76,8 +76,8 @@ export default {
           }
       ).then(() => {
         this.closeCategoryModal()
-        router.push({name: 'featureCategoryRoute'})
         this.$emit('event-category-edited-or-added')
+        router.push({name: 'featureCategoryRoute', query: {mainEventId: this.mainEventId}})
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })

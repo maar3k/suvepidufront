@@ -138,9 +138,6 @@ export default {
         router.push({name: 'errorRoute'})
       })
     },
-
-
-
   },
 
   beforeMount() {
