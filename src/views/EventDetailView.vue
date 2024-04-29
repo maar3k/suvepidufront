@@ -22,7 +22,7 @@
             <!--            <th scope="col">Laiuskraad</th>-->
             <th scope="col">Lisa piletid</th>
             <th scope="col">Muuda</th>
-            <th scope="col">Kustuta</th>
+<!--            <th scope="col">Kustuta</th>-->
           </tr>
           </thead>
 
@@ -45,10 +45,10 @@
                                  :icon="['far', 'pen-to-square']"/>
             </td>
 
-            <td>
-              <font-awesome-icon @click="openDeleteEventDetailModal" class="cursor-pointer"
-                                 :icon="['far', 'trash-can']"/>
-            </td>
+<!--            <td>-->
+<!--              <font-awesome-icon @click="openDeleteEventDetailModal" class="cursor-pointer"-->
+<!--                                 :icon="['far', 'trash-can']"/>-->
+<!--            </td>-->
 
           </tr>
           </tbody>

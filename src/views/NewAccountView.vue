@@ -31,7 +31,7 @@
         <button @click="addNewUser" type="submit" class="button-success btn btn-primary text-center text-nowrap">
           OK
         </button>
-        <button @click="" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu</button>
+        <button @click="navigateToHomeView" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu</button>
       </div>
     </div>
 
@@ -116,7 +116,7 @@ export default {
       this.$http.post("/account/business", this.businessInfo
       ).then(() => {
         this.successMessage = "Uus korraldaja " + this.businessInfo.companyName + " registreeritud!"
-        // this.resetAllInputFieldsBusiness()
+        this.resetAllInputFieldsBusiness()
       }).catch(() => {
         router.push({name: 'errorRoute'})
       })
@@ -141,6 +141,10 @@ export default {
       this.businessInfo.vatNumber = ''
       this.businessInfo.phone = ''
       this.businessInfo.email = ''
+    },
+
+    navigateToHomeView() {
+      router.push({name: 'homeRoute'})
     },
 
   },

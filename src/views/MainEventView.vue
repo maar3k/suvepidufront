@@ -28,7 +28,9 @@
               class="button-success btn btn-primary text-center text-nowrap">
         OK
       </button>
-      <button @click="" type="submit" class="button-danger btn btn-primary text-center text-nowrap">Loobu</button>
+      <button @click="navigateToEventsView" type="submit" class="button-danger btn btn-primary text-center text-nowrap">
+        Loobu
+      </button>
 
     </div>
   </div>
@@ -123,6 +125,10 @@ export default {
         this.sendGetMainEventRequest(mainEventId)
       }
     },
+
+    navigateToEventsView() {
+      router.push({name: 'eventsRoute'})
+    }
   },
   beforeMount() {
     this.getMainEventIdFromUrlQueryParameter()
