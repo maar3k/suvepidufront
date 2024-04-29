@@ -52,22 +52,11 @@ export default {
       if (this.ticketTypeInfoExtended.ticketTypeId !== 0) {
         this.sendPutEditTicketTypeRequest()
       } else {
-        this.sendPostAddTicketTypeRequest()
+        this.sendAddTicketTypeRequest()
       }
     },
 
-    sendPutEditTicketTypeRequest() {
-      this.$http.put("/ticket-type", this.ticketTypeInfoExtended
-      ).then(() => {
-        this.closeTicketTypeModal()
-        router.push({name: 'eventTicketTypeRoute'})
-        this.$emit('event-ticket-type-edited-or-added')
-      }).catch(() => {
-        router.push({name: 'errorRoute'})
-      })
-    },
-
-    sendPostAddTicketTypeRequest() {
+    sendAddTicketTypeRequest() {
       const ticketTypeInfo = {
         ticketTypeName: this.ticketTypeInfoExtended.ticketTypeName,
         ticketTypePrice: this.ticketTypeInfoExtended.ticketTypePrice
@@ -78,6 +67,17 @@ export default {
               mainEventId: this.mainEventId
             }
           }
+      ).then(() => {
+        this.closeTicketTypeModal()
+        router.push({name: 'eventTicketTypeRoute'})
+        this.$emit('event-ticket-type-edited-or-added')
+      }).catch(() => {
+        router.push({name: 'errorRoute'})
+      })
+    },
+
+    sendPutEditTicketTypeRequest() {
+      this.$http.put("/ticket-type", this.ticketTypeInfoExtended
       ).then(() => {
         this.closeTicketTypeModal()
         router.push({name: 'eventTicketTypeRoute'})

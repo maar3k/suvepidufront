@@ -60,8 +60,9 @@ export default {
   components: {Modal, CountyDropdown},
   data() {
     return {
-      isAdd: false,
+      isAdd: true,
       mainEventId: Number(useRoute().query.mainEventId),
+      // saab kasutada routerit modalil, kui ei pea seda mujal lehel kasutama ja jääme samale lehele
       eventDetailId: 0,
 
       eventDetailInfo: {
@@ -77,6 +78,7 @@ export default {
   },
   methods: {
     handleOpenEventDetailModalAsEdit(eventDetailId) {
+      this.isAdd = false
       this.eventDetailId = eventDetailId
       this.sendGetEventDetailRequest();
     },
@@ -112,10 +114,9 @@ export default {
           }
       ).then(() => {
         this.closeEventDetailModal()
-        router.push({name: 'eventDetailRoute'})
         this.$emit('event-detail-edited-or-added')
       }).catch(() => {
-        // router.push({name: 'errorRoute'})
+        router.push({name: 'errorRoute'})
       })
     },
 
@@ -137,7 +138,7 @@ export default {
         this.$refs.modalRef.openModal()
         setTimeout(this.setCountyDropdownSelectedCountyId, 500)
       }).catch(() => {
-        // router.push({name: 'errorRoute'})
+        router.push({name: 'errorRoute'})
       })
     },
 
